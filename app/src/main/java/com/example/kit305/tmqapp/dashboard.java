@@ -95,7 +95,9 @@ public class dashboard extends AppCompatActivity {
     private void setupPieChart() {
         List<PieEntry> pieEntries = new ArrayList<>();
         for (int i = 0; i < taskCount.length; i++) {
-            if (taskCount[i] > 0)
+            if (taskCount[i] == 0)
+                pieEntries.add(new PieEntry(taskCount[i]));
+            else
                 pieEntries.add(new PieEntry(taskCount[i], taskClass[i]));
         }
 

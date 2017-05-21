@@ -27,6 +27,14 @@
             android:textSize="30sp" />
 
         <TextView
+            android:id="@+id/textView11"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="@string/title_activity_results"
+            android:textAlignment="center"
+            android:textSize="30sp" />
+
+        <TextView
             android:id="@+id/category_A_score"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
