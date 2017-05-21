@@ -91,10 +91,12 @@ public class dashboard extends AppCompatActivity {
     private void setupPieChart() {
         List<PieEntry> pieEntries = new ArrayList<>();
         for (int i = 0; i < taskCount.length; i++) {
-            pieEntries.add(new PieEntry(taskCount[i], taskClass[i]));
+            if (taskCount[i] > 0)
+                pieEntries.add(new PieEntry(taskCount[i], taskClass[i]));
         }
 
         PieDataSet dataSet = new PieDataSet(pieEntries, "Tasks");
+
         PieData chartData = new PieData(dataSet);
         PieChart chart = (PieChart) findViewById(R.id.pieChart);
         Description description = new Description();
