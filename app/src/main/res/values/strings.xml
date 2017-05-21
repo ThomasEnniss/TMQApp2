@@ -10,9 +10,8 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="title_activity_questionaire">Questionaire</string>
-    <string name="deafault_task_amaount">0</string>
     <string name="dashboard_first_string">You currently have:</string>
-    <string name="dashboard_second_string">Tasks</string>
+    <string name="dashboard_second_string">tasks remaining!</string>
     <string name="dashboard_third_string">Your TMQ Score is:</string>
     <string name="dashboard_fourth_string">69/100</string>
 
