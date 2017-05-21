@@ -153,10 +153,10 @@ public class questionaire extends AppCompatActivity {
         float value17 = Float.parseFloat(question17.getSelectedItem().toString());
         float value18 = Float.parseFloat(question18.getSelectedItem().toString());
 
-        float categoryAScore = (((value1 + value2 + value3 + value4 + value5 + value6 + value7) / 35f) * 100f);
-        float categoryBScore = ((value8 + value9 + value10 + value11 + value12 + value13) / 30f) * 100f;
-        float categoryCScore = ((value14 + value15 + value16 + value17 + value18) / 25f) * 100f;
-        float finalScore = ((categoryAScore + categoryBScore + categoryCScore) / 300f) * 100f;
+        int categoryAScore = (int)(((value1 + value2 + value3 + value4 + value5 + value6 + value7) / 35f) * 100f);
+        int categoryBScore = (int)(((value8 + value9 + value10 + value11 + value12 + value13) / 30f) * 100f);
+        int categoryCScore = (int)(((value14 + value15 + value16 + value17 + value18) / 25f) * 100f);
+        int finalScore = (int)(((categoryAScore + categoryBScore + categoryCScore) / 300f) * 100f);
 
         Log.d("Category A", Float.toString(categoryAScore));
         Log.d("Category B", Float.toString(categoryBScore));
@@ -166,12 +166,12 @@ public class questionaire extends AppCompatActivity {
         jumpToResults(categoryAScore, categoryBScore, categoryCScore, finalScore);
     }
 
-    public void jumpToResults(float scoreA, float scoreB, float scoreC, float scoreD) {
+    public void jumpToResults(int scoreA, int scoreB, int scoreC, int scoreD) {
         Intent intent = new Intent(questionaire.this, questionnaireResults.class);
-        intent.putExtra("categoryA", Float.toString(scoreA));
-        intent.putExtra("categoryB", Float.toString(scoreB));
-        intent.putExtra("categoryC", Float.toString(scoreC));
-        intent.putExtra("finalScore", Float.toString(scoreD));
+        intent.putExtra("categoryA", Integer.toString(scoreA));
+        intent.putExtra("categoryB", Integer.toString(scoreB));
+        intent.putExtra("categoryC", Integer.toString(scoreC));
+        intent.putExtra("finalScore", Integer.toString(scoreD));
         startActivity(intent);
     }
 }
