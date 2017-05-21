@@ -26,7 +26,7 @@
                 android:paddingTop="@dimen/activity_vertical_margin" >
 
                 <TextView
-                    android:id="@+id/textView9"
+                    android:id="@+id/page_title"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:text="@string/title_activity_questionaire"
@@ -34,23 +34,23 @@
                     android:textSize="30sp" />
 
                 <TextView
-                    android:id="@+id/textView14"
+                    android:id="@+id/category_A_title"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
                     android:layout_alignParentBottom="false"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
-                    android:layout_below="@+id/textView9"
+                    android:layout_below="@+id/page_title"
                     android:paddingTop="5dp"
                     android:text="@string/category_A"
                     android:textAlignment="center"
                     android:textSize="18sp" />
 
                 <TextView
-                    android:id="@+id/textView15"
+                    android:id="@+id/category_A_description"
                     android:layout_width="match_parent"
                     android:layout_height="20dp"
-                    android:layout_below="@+id/textView14"
+                    android:layout_below="@+id/category_A_title"
                     android:layout_marginBottom="10dp"
                     android:layout_marginTop="10dp"
                     android:text="@string/category_A_Description"
@@ -61,7 +61,7 @@
                     android:id="@+id/question1"
                     android:layout_width="240dp"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/textView15"
+                    android:layout_below="@+id/category_A_description"
                     android:paddingBottom="5dp"
                     android:paddingLeft="10dp"
                     android:paddingTop="5dp"
@@ -189,156 +189,146 @@
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true" />
 
-
-                <!--
                 <TextView
-                    android:id="@+id/textView14"
+                    android:id="@+id/category_B_title"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
                     android:layout_alignParentBottom="false"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
-                    android:layout_below="@+id/textView22"
+                    android:layout_below="@+id/question7"
                     android:paddingTop="5dp"
                     android:text="@string/category_B"
                     android:textAlignment="center"
-                    android:textColor="@android:color/black"
                     android:textSize="18sp" />
 
                 <TextView
-                    android:id="@+id/textView15"
+                    android:id="@+id/category_B_description"
                     android:layout_width="match_parent"
                     android:layout_height="20dp"
-                    android:layout_below="@+id/textView14"
+                    android:layout_below="@+id/category_B_title"
                     android:layout_marginBottom="10dp"
                     android:layout_marginTop="10dp"
                     android:text="@string/category_B_Description"
                     android:textAlignment="center"
-                    android:textColor="@android:color/black"
                     android:textSize="14sp" />
 
                 <TextView
-                    android:id="@+id/textView16"
+                    android:id="@+id/question8"
                     android:layout_width="240dp"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/textView15"
+                    android:layout_below="@+id/category_B_description"
                     android:paddingBottom="5dp"
                     android:paddingLeft="10dp"
                     android:paddingTop="5dp"
-                    android:text="@string/category_B_question_1"
-                    android:textColor="@android:color/black" />
+                    android:text="@string/category_B_question_1" />
 
                 <TextView
-                    android:id="@+id/textView17"
+                    android:id="@+id/question9"
                     android:layout_width="240dp"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/textView16"
+                    android:layout_below="@+id/question8"
                     android:paddingBottom="5dp"
                     android:paddingLeft="10dp"
                     android:paddingTop="5dp"
-                    android:text="@string/category_B_question_2"
-                    android:textColor="@android:color/black" />
+                    android:text="@string/category_B_question_2" />
 
                 <TextView
-                    android:id="@+id/textView18"
+                    android:id="@+id/question10"
                     android:layout_width="240dp"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/textView17"
+                    android:layout_below="@+id/question9"
                     android:paddingBottom="5dp"
                     android:paddingLeft="10dp"
                     android:paddingTop="5dp"
-                    android:text="@string/category_A_question_3"
-                    android:textColor="@android:color/black" />
+                    android:text="@string/category_B_question_3" />
 
                 <TextView
-                    android:id="@+id/textView19"
+                    android:id="@+id/question11"
                     android:layout_width="240dp"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
-                    android:layout_below="@+id/textView18"
+                    android:layout_below="@+id/question10"
                     android:paddingBottom="5dp"
                     android:paddingLeft="10dp"
                     android:paddingTop="5dp"
-                    android:text="@string/category_A_question_4"
-                    android:textColor="@android:color/black" />
+                    android:text="@string/category_B_question_4" />
 
                 <TextView
-                    android:id="@+id/textView20"
+                    android:id="@+id/question12"
                     android:layout_width="240dp"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/textView19"
+                    android:layout_below="@+id/question11"
                     android:paddingBottom="5dp"
                     android:paddingLeft="10dp"
                     android:paddingTop="5dp"
-                    android:text="@string/category_B_question_5"
-                    android:textColor="@android:color/black" />
+                    android:text="@string/category_B_question_5" />
 
                 <TextView
-                    android:id="@+id/textView23"
+                    android:id="@+id/question13"
                     android:layout_width="240dp"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/textView20"
+                    android:layout_below="@+id/question12"
                     android:paddingBottom="5dp"
                     android:paddingLeft="10dp"
                     android:paddingTop="5dp"
-                    android:text="@string/category_B_question_6"
-                    android:textColor="@android:color/black" />
-
-                <Spinner
-                    android:id="@+id/spinner"
-                    android:layout_width="144dp"
-                    android:layout_height="wrap_content"
-                    android:layout_above="@+id/textView17"
-                    android:layout_alignParentRight="true"
-                    android:layout_below="@+id/textView15"
-                    android:layout_toRightOf="@+id/textView16" />
-
-                <Spinner
-                    android:id="@+id/spinner2"
-                    android:layout_width="144dp"
-                    android:layout_height="wrap_content"
-                    android:layout_above="@+id/textView18"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_below="@+id/textView16" />
-
-                <Spinner
-                    android:id="@+id/spinner3"
-                    android:layout_width="144dp"
-                    android:layout_height="wrap_content"
-                    android:layout_above="@+id/textView19"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_below="@+id/textView17" />
-
-                <Spinner
-                    android:id="@+id/spinner4"
-                    android:layout_width="144dp"
-                    android:layout_height="wrap_content"
-                    android:layout_above="@+id/textView20"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_below="@+id/textView18" />
-
-                <Spinner
-                    android:id="@+id/spinner5"
-                    android:layout_width="144dp"
-                    android:layout_height="wrap_content"
-                    android:layout_above="@+id/textView23"
-                    android:layout_alignParentLeft="false"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentStart="false"
-                    android:layout_below="@+id/textView19" />
+                    android:text="@string/category_B_question_6" />
 
                 <Spinner
                     android:id="@+id/spinner8"
                     android:layout_width="144dp"
                     android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/textView23"
+                    android:layout_above="@+id/question9"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@+id/category_B_description"
+                    android:layout_toRightOf="@+id/question8" />
+
+                <Spinner
+                    android:id="@+id/spinner9"
+                    android:layout_width="144dp"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/question10"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
-                    android:layout_below="@+id/spinner5" />
+                    android:layout_below="@+id/question8" />
+
+                <Spinner
+                    android:id="@+id/spinner10"
+                    android:layout_width="144dp"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/question11"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@+id/question9" />
+
+                <Spinner
+                    android:id="@+id/spinner11"
+                    android:layout_width="144dp"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/question12"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@+id/question10" />
+
+                <Spinner
+                    android:id="@+id/spinner12"
+                    android:layout_width="144dp"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/question13"
+                    android:layout_alignParentLeft="false"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentStart="false"
+                    android:layout_below="@+id/question11" />
+
+                <Spinner
+                    android:id="@+id/spinner13"
+                    android:layout_width="144dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/question13"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@+id/spinner12" />
 
                 <TextView
                     android:id="@+id/textView9"
@@ -346,9 +336,9 @@
                     android:layout_height="40dp"
                     android:text="@string/title_activity_questionaire"
                     android:textAlignment="center"
-                    android:textColor="@android:color/black"
                     android:textSize="30sp" />
 
+                <!--
                 <TextView
                     android:id="@+id/textView14"
                     android:layout_width="match_parent"
