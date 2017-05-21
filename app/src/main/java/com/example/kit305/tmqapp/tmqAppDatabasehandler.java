@@ -80,4 +80,54 @@ public class tmqAppDatabasehandler extends SQLiteOpenHelper {
         cursor.moveToNext();
         Log.d("Found",cursor.getString(cursor.getColumnIndex(COLUMN_NAME_TASK_NAME)));
     }
+
+    public int[] loadChartValues(){
+
+        Log.d("SqlLite","Loading Chart Values...");
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        int[] numbers = {0,0,0,0};
+
+        String[] columnsToQuery = {COLUMN_NAME_URGENT,COLUMN_NAME_IMPORTANT};
+
+        Cursor cursor = db.query(TABLE_NAME,columnsToQuery,null,null,null,null,null);
+
+        while(cursor.moveToNext()){
+            String temp_urgent_value = cursor.getString(cursor.getColumnIndex(COLUMN_NAME_URGENT));
+            String temp_important_value = cursor.getString(cursor.getColumnIndex(COLUMN_NAME_IMPORTANT));
+
+            Log.d("SqlLite","Urgent: " + temp_urgent_value + " Important: " + temp_important_value);
+
+            if(temp_urgent_value.equals("false")){
+
+                Log.d("SqlLite", "Not Urgent");
+
+                if(temp_important_value.equals("false")){
+
+                    Log.d("SqlLite", "Not Important");
+
+                    numbers[3]++;
+                }else{
+
+                    Log.d("SqlLite", "Important");
+
+                    numbers[2]++;
+                }
+            }else{
+
+                Log.d("SqlLite", "Urgent");
+
+                if(temp_important_value.equals("false")){
+                    numbers[1]++;
+                }else{
+
+                    Log.d("SqlLite", "Important");
+
+                    numbers[0]++;
+                }
+            }
+        }
+        Log.d("SqlLite","Chart Values Loaded");
+        return numbers;
+    }
 }

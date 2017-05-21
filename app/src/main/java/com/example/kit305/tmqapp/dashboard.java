@@ -1,5 +1,6 @@
 package com.example.kit305.tmqapp;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
@@ -9,6 +10,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.github.mikephil.charting.charts.PieChart;
@@ -20,6 +22,7 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class dashboard extends AppCompatActivity {
@@ -27,7 +30,9 @@ public class dashboard extends AppCompatActivity {
     private NavigationView mNavigation;
     private ActionBarDrawerToggle mToggle;
 
-    int taskCount[] = { 1, 2, 3, 5 };
+    tmqAppDatabasehandler database;
+
+    int taskCount[];
     String taskClass[] = { "U-I", "NU-I", "U-NI", "NU-NI" };
 
     @Override
@@ -64,6 +69,9 @@ public class dashboard extends AppCompatActivity {
         mToggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        database  = new tmqAppDatabasehandler(this.getApplicationContext());
+        taskCount = database.loadChartValues();
+        Log.d("Dashboard", Arrays.toString(taskCount));
         setupPieChart();
     }
 
