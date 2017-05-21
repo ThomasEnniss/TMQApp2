@@ -28,6 +28,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+/* public static final int[] COLORFUL_COLORS = {
+            Color.rgb(193, 37, 82), Color.rgb(255, 102, 0), Color.rgb(245, 199, 0),
+            Color.rgb(106, 150, 31), Color.rgb(179, 100, 53)
+    };
+*/
+
 public class activity_calendar extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     private NavigationView mNavigation;

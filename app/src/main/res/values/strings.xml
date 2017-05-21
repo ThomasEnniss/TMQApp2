@@ -8,10 +8,9 @@
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="title_activity_new_task">NewTask</string>
     <string name="title_dashboard">Dashboard</string>
-
     <string name="title_notifications">Notifications</string>
     <string name="title_activity_questionaire">Questionaire</string>
-    <string name="title_activity_results">Results</string>
+    <string name="title_activity_results">TMQ Results</string>
 
     <!--Menu Strings-->
     <string name="menu_open">Open</string>
@@ -43,7 +42,6 @@
     <string name="category_B_Description">Time Attitudes</string>
     <string name="category_C_Description">Long-Range Planning</string>
 
-
     <string name="category_A_question_1">Do you make a list of the things you have to do each day?</string>
     <string name="category_A_question_2">Do you plan your day before you start it?</string>
     <string name="category_A_question_3">Do you make a schedule of the activities you have to do on work days?</string>
@@ -64,6 +62,12 @@
     <string name="category_C_question_3">The night  before  a major  assignment  is due, are you usually still working on it?</string>
     <string name="category_C_question_4">When you have several things to do, do you think  it is best to do a little bit of work on each one</string>
     <string name="category_C_question_5">Do you regularly review your class notes, even when a test is not imminent?</string>
+
+    <!--Results Strings-->
+    <string name="category_A_title">Short-Range Planning Score:</string>
+    <string name="category_B_title">Time Attitudes Score:</string>
+    <string name="category_C_title">Long-Range Planning:</string>
+    <string name="category_D_title">Total TMQ Score:</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

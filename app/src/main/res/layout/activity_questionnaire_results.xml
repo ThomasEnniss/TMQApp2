@@ -21,52 +21,128 @@
         <TextView
             android:id="@+id/page_title"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
             android:text="@string/title_activity_results"
             android:textAlignment="center"
             android:textSize="30sp" />
 
+
         <TextView
-            android:id="@+id/textView11"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:text="@string/title_activity_results"
-            android:textAlignment="center"
-            android:textSize="30sp" />
+            android:id="@+id/category_A"
+            android:layout_width="220dp"
+            android:layout_height="60dp"
+            android:layout_below="@id/page_title"
+            android:paddingBottom="15dp"
+            android:paddingLeft="25dp"
+            android:paddingTop="15dp"
+            android:text="@string/category_A_title" />
+
+
+        <TextView
+            android:id="@+id/category_B"
+            android:layout_width="220dp"
+            android:layout_height="60dp"
+            android:layout_below="@id/category_A"
+            android:paddingBottom="15dp"
+            android:paddingLeft="25dp"
+            android:paddingTop="15dp"
+            android:text="@string/category_B_title" />
+
+        <TextView
+            android:id="@+id/category_C"
+            android:layout_width="220dp"
+            android:layout_height="60dp"
+            android:layout_below="@id/category_B"
+            android:paddingBottom="15dp"
+            android:paddingLeft="25dp"
+            android:paddingTop="15dp"
+            android:text="@string/category_C_title" />
+
+        <View
+            android:id="@+id/divider1"
+            android:layout_width="300dp"
+            android:layout_height="1dp"
+            android:layout_marginBottom="55dp"
+            android:layout_below="@id/category_C"
+            android:layout_centerHorizontal="true"
+            android:background="@color/white" />
+
+        <TextView
+            android:id="@+id/category_D"
+            android:layout_width="220dp"
+            android:layout_height="60dp"
+            android:layout_below="@id/category_C"
+            android:paddingBottom="15dp"
+            android:paddingLeft="25dp"
+            android:paddingTop="15dp"
+            android:layout_marginBottom="25dp"
+            android:text="@string/category_D_title"/>
 
         <TextView
             android:id="@+id/category_A_score"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/page_title"
-            android:paddingTop="15dp" />
+            android:layout_width="75dp"
+            android:layout_height="60dp"
+            android:paddingBottom="15dp"
+            android:paddingRight="35dp"
+            android:paddingTop="15dp"
+            android:layout_above="@id/category_B"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@id/category_A"
+            android:layout_gravity="end"
+            android:textAlignment="textEnd" />
 
         <TextView
             android:id="@+id/category_B_score"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="75dp"
+            android:layout_height="60dp"
+            android:paddingBottom="15dp"
+            android:paddingRight="35dp"
             android:paddingTop="15dp"
-            android:layout_below="@+id/category_A_score"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_above="@id/category_C"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@id/category_B"
+            android:layout_gravity="end"
+            android:textAlignment="textEnd" />
 
         <TextView
             android:id="@+id/category_C_score"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="75dp"
+            android:layout_height="60dp"
+            android:paddingBottom="15dp"
+            android:paddingRight="35dp"
             android:paddingTop="15dp"
-            android:layout_below="@+id/category_B_score"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_above="@id/category_D"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@id/category_C"
+            android:layout_gravity="end"
+            android:textAlignment="textEnd" />
 
         <TextView
             android:id="@+id/final_score"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="75dp"
+            android:layout_height="60dp"
+            android:paddingBottom="15dp"
+            android:paddingRight="35dp"
             android:paddingTop="15dp"
-            android:layout_below="@+id/category_C_score"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_below="@id/category_C"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@id/category_D"
+            android:layout_gravity="end"
+            android:textAlignment="textEnd" />
+
+        <Button
+            android:id="@+id/home"
+            android:text="Back to Dashboard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/category_D"
+            android:layout_centerHorizontal="true"
+            android:onClick="jumpToDashboard"/>
     </RelativeLayout>
 
     <android.support.design.widget.NavigationView

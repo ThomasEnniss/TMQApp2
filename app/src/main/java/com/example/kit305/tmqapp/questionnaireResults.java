@@ -7,6 +7,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 public class questionnaireResults extends AppCompatActivity {
@@ -76,5 +77,10 @@ public class questionnaireResults extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void jumpToDashboard(View view) {
+        Intent intent = new Intent(questionnaireResults.this, dashboard.class);
+        startActivity(intent);
     }
 }
