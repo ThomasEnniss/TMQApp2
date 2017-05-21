@@ -134,7 +134,7 @@ public class new_task extends AppCompatActivity {
                 String[] taskValuesToSave3 = {task_name,unit_code,due_date,urgent,important,comments};
 
                 /*Save Values into the database*/
-                database.insertTask(taskValuesToSave);
+                database.insertTask(taskValuesToSave3);
             }
         });
 

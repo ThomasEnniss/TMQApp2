@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Description;
@@ -77,6 +78,9 @@ public class dashboard extends AppCompatActivity {
         taskCount = database.loadChartValues();
         Log.d("Dashboard", Arrays.toString(taskCount));
         setupPieChart();
+        TextView scoreLabel = (TextView)findViewById(R.id.label4);
+
+        scoreLabel.setText(database.getTMQScore() + "%");
     }
 
     @Override

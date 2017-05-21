@@ -11,9 +11,10 @@ import android.util.Log;
 
 public class tmqAppDatabasehandler extends SQLiteOpenHelper {
 
-    private static final String TABLE_NAME = "tasks_table";
+    private static final String TASK_TABLE_NAME = "tasks_table";
+    private static final String TMQ_TABLE_NAME = "tmq_table";
 
-    private static final String COLUMN_NAME_ID = "task_id";
+    private static final String COLUMN_NAME_TASK_ID = "task_id";
     private static final String COLUMN_NAME_TASK_NAME = "task_name";
     private static final String COLUMN_NAME_TASK_UNIT_CODE = "task_unit_code";
     private static final String COLUMN_NAME_DUE_DATE = "due_date";
@@ -21,17 +22,25 @@ public class tmqAppDatabasehandler extends SQLiteOpenHelper {
     private static final String COLUMN_NAME_IMPORTANT = "important";
     private static final String COLUMN_NAME_COMMENTS = "comments";
 
+    private static final String COLUMN_NAME_TMQ_ID = "tmq_id";
+    private static final String COLUMN_NAME_TMQ_SCORE = "tmq_score";
+
     private SQLiteDatabase db;
 
     private static final String SQL_CREATE_TASK_TABLE =
-            "CREATE TABLE " + TABLE_NAME + " (" +
-                    COLUMN_NAME_ID + " INTEGER PRIMARY KEY NOT NULL," +
+            "CREATE TABLE " + TASK_TABLE_NAME + " (" +
+                    COLUMN_NAME_TASK_ID + " INTEGER PRIMARY KEY NOT NULL," +
                     COLUMN_NAME_TASK_NAME + " TEXT," +
                     COLUMN_NAME_TASK_UNIT_CODE + " TEXT," +
                     COLUMN_NAME_DUE_DATE + " TEXT," +
                     COLUMN_NAME_URGENT + " TEXT," +
                     COLUMN_NAME_IMPORTANT + " TEXT," +
                     COLUMN_NAME_COMMENTS + " TEXT)";
+
+    private static final String SQL_CREATE_TMQ_TABLE =
+            " CREATE TABLE " + TMQ_TABLE_NAME + " (" +
+                    COLUMN_NAME_TMQ_ID + " INTEGER PRIMARY KEY NOT NULL," +
+                    COLUMN_NAME_TMQ_SCORE + " TEXT)";
 
 
 
@@ -45,10 +54,13 @@ public class tmqAppDatabasehandler extends SQLiteOpenHelper {
 
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(SQL_CREATE_TASK_TABLE);
+        db.execSQL(SQL_CREATE_TMQ_TABLE);
+        setupTMQTable();
         this.db = db;
     }
+
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        String SQL_DELETE_ENTRIES = "DROP TABLE IF EXISTS " + TABLE_NAME;
+        String SQL_DELETE_ENTRIES = "DROP TABLE IF EXISTS " + TASK_TABLE_NAME;
         db.execSQL(SQL_DELETE_ENTRIES);
         this.onCreate(db);
     }
@@ -57,6 +69,7 @@ public class tmqAppDatabasehandler extends SQLiteOpenHelper {
     }
 
     public void insertTask(String[] taskValues){
+
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -67,15 +80,18 @@ public class tmqAppDatabasehandler extends SQLiteOpenHelper {
         values.put(COLUMN_NAME_IMPORTANT,taskValues[4]);
         values.put(COLUMN_NAME_COMMENTS,taskValues[5]);
 
-        long newRowId = db.insert(TABLE_NAME,null,values);
+        long newRowId = db.insert(TASK_TABLE_NAME,null,values);
+
+
 
     }
+
     public void viewTaskTable(){
         SQLiteDatabase db = this.getReadableDatabase();
 
         String[] columnsToQuery = {COLUMN_NAME_TASK_NAME,COLUMN_NAME_TASK_UNIT_CODE,COLUMN_NAME_DUE_DATE,COLUMN_NAME_URGENT,COLUMN_NAME_IMPORTANT,COLUMN_NAME_COMMENTS};
 
-        Cursor cursor = db.query(TABLE_NAME,columnsToQuery,null,null,null,null,null);
+        Cursor cursor = db.query(TASK_TABLE_NAME,columnsToQuery,null,null,null,null,null);
 
         cursor.moveToNext();
         Log.d("Found",cursor.getString(cursor.getColumnIndex(COLUMN_NAME_TASK_NAME)));
@@ -90,7 +106,7 @@ public class tmqAppDatabasehandler extends SQLiteOpenHelper {
 
         String[] columnsToQuery = {COLUMN_NAME_URGENT,COLUMN_NAME_IMPORTANT};
 
-        Cursor cursor = db.query(TABLE_NAME,columnsToQuery,null,null,null,null,null);
+        Cursor cursor = db.query(TASK_TABLE_NAME,columnsToQuery,null,null,null,null,null);
 
         while(cursor.moveToNext()){
             String temp_urgent_value = cursor.getString(cursor.getColumnIndex(COLUMN_NAME_URGENT));
@@ -135,7 +151,52 @@ public class tmqAppDatabasehandler extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getReadableDatabase();
 
-        db.delete(TABLE_NAME, null, null);
+        db.delete(TASK_TABLE_NAME, null, null);
 
+    }
+
+    private void setupTMQTable(){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_NAME_TMQ_ID,0);
+        values.put(COLUMN_NAME_TMQ_SCORE,"0");
+
+
+        long newRowId = db.insert(TMQ_TABLE_NAME,null,values);
+
+    }
+
+    public void updateTMQScore(String score){
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_NAME_TMQ_SCORE, score);
+
+
+        String selection = COLUMN_NAME_TMQ_ID + " LIKE ?";
+        String[] selectionArgs = { "0" };
+
+        int count = db.update(
+                TMQ_TABLE_NAME,
+                values,
+                selection,
+                selectionArgs
+        );
+    }
+
+    public String getTMQScore(){
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String[] columnsToQuery = {COLUMN_NAME_TMQ_SCORE};
+
+        Cursor cursor = db.query(TMQ_TABLE_NAME,columnsToQuery,null,null,null,null,null);
+
+        cursor.moveToNext();
+
+        return cursor.getString(cursor.getColumnIndex(COLUMN_NAME_TMQ_SCORE));
     }
 }

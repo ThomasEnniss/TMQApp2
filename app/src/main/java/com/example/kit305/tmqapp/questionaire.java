@@ -19,6 +19,8 @@ public class questionaire extends AppCompatActivity {
     private NavigationView mNavigation;
     private ActionBarDrawerToggle mToggle;
 
+    tmqAppDatabasehandler database;
+
     Spinner question1;
     Spinner question2;
     Spinner question3;
@@ -43,6 +45,8 @@ public class questionaire extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_questionaire);
+
+        database  = new tmqAppDatabasehandler(this.getApplicationContext());
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         mNavigation = (NavigationView) findViewById(R.id.navigationView);
@@ -162,6 +166,8 @@ public class questionaire extends AppCompatActivity {
         Log.d("Category B", Float.toString(categoryBScore));
         Log.d("Category C", Float.toString(categoryCScore));
         Log.d("TMQ Score", Float.toString(finalScore));
+
+        database.updateTMQScore(Integer.toString(finalScore));
 
         jumpToResults(categoryAScore, categoryBScore, categoryCScore, finalScore);
     }
