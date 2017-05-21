@@ -133,6 +133,17 @@ public class new_task extends AppCompatActivity {
                 database.insertTask(taskValuesToSave);
             }
         });
+
+        Button cancelButton = (Button)findViewById(R.id.button4);
+
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                database.emptyDatabase();
+            }
+        });
+
+
     }
 
     @Override

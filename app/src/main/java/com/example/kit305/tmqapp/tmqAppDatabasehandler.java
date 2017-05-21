@@ -130,4 +130,12 @@ public class tmqAppDatabasehandler extends SQLiteOpenHelper {
         Log.d("SqlLite","Chart Values Loaded");
         return numbers;
     }
+
+    public void emptyDatabase(){
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        db.delete(TABLE_NAME, null, null);
+
+    }
 }
