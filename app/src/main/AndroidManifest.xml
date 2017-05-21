@@ -16,7 +16,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity_calendar"/>
-        <activity android:name=".new_task" />
+        <activity android:name=".new_task" >
+
+        </activity>
         <activity android:name=".questionaire">
 
         </activity>

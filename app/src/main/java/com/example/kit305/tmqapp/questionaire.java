@@ -23,7 +23,6 @@ public class questionaire extends AppCompatActivity {
         mNavigation.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
-
                 switch (item.getItemId()) {
                     case R.id.dashboard:
                         Intent newTaskIntent = new Intent(questionaire.this, dashboard.class);
@@ -32,6 +31,10 @@ public class questionaire extends AppCompatActivity {
                     case R.id.questionnaire:
                         Intent calendarIntent = new Intent(questionaire.this, questionaire.class);
                         startActivity(calendarIntent);
+                        return true;
+                    case R.id.add_task:
+                        Intent addTaskIntent = new Intent(questionaire.this, new_task.class);
+                        startActivity(addTaskIntent);
                         return true;
                 }
 

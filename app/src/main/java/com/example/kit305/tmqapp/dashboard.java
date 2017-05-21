@@ -49,6 +49,10 @@ public class dashboard extends AppCompatActivity {
                         Intent calendarIntent = new Intent(dashboard.this, questionaire.class);
                         startActivity(calendarIntent);
                         return true;
+                    case R.id.add_task:
+                        Intent addTaskIntent = new Intent(dashboard.this, new_task.class);
+                        startActivity(addTaskIntent);
+                        return true;
                 }
 
                 return false;
