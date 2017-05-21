@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">TMQApp</string>
     <string name="title_question">Questionaire</string>
-    <string name="title_home">Dashboard</string>
+    <string name="title_activity_dashboard">Dashboard</string>
     <string name="title_new">New Task</string>
     <string name="title_activity_calendar">Calendar</string>
     <string name="action_settings">Settings</string>
@@ -23,6 +23,14 @@
 
 
     <!--Questionaire Strings-->
+    <string name="questionnaire_description_1">
+        This Time Management Questionnaire (TMQ) will allow the app to calculate your score in regards to your level of time
+        management skills.
+    </string>
+    <string name="questionnaire_description_2">
+        Answers come in the form of a Likert 5-point scale (5 being always, 1 being never) to help with score calculations.
+    </string>
+
     <!--Category Strings-->
     <string name="category_A">Category A</string>
     <string name="category_B">Category B</string>
