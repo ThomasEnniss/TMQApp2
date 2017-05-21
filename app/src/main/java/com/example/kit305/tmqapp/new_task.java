@@ -76,33 +76,14 @@ public class new_task extends AppCompatActivity {
 
                 EditText comments_section = (EditText)findViewById(R.id.editText);
 
-
-
                 /*We retrieve the values and get them ready to place in an array*/
 
-               /*String task_name = task_name_entry_field.getText().toString();
+                String task_name = task_name_entry_field.getText().toString();
                 String unit_code = unit_code_entry_field.getText().toString();
                 String due_date = due_date_entry_field.getText().toString();
                 String urgent = (urgent_switch.isChecked() ? "true" : "false");
                 String important = (important_switch.isChecked() ? "true" : "false");
-                String comments = comments_section.getText().toString();*/
-
-                String task_name = "Tom";
-                String unit_code = "Tom";
-                String due_date = "27/05/2017";
-                String urgent = "true";
-                String important = "false";
-                String comments = "Testing1";
-
-
-
-                /*Log the values for error checking*/
-                /*Log.d("New_Task",task_name);
-                Log.d("New_Task",unit_code);
-                Log.d("New_Task",due_date);
-                Log.d("New_Task",urgent);
-                Log.d("New_Task",important);
-                Log.d("New_Task",comments);*/
+                String comments = comments_section.getText().toString();
 
                 /*Place values into the array for saving*/
                 String[] taskValuesToSave = {task_name,unit_code,due_date,urgent,important,comments};
@@ -110,31 +91,6 @@ public class new_task extends AppCompatActivity {
                 /*Save Values into the database*/
                 database.insertTask(taskValuesToSave);
 
-                task_name = "Tom";
-                unit_code = "Tom";
-                due_date = "27/05/2017";
-                urgent = "false";
-                important = "false";
-                comments = "Testing2";
-
-                /*Place values into the array for saving*/
-                String[] taskValuesToSave2 = {task_name,unit_code,due_date,urgent,important,comments};
-
-                /*Save Values into the database*/
-                database.insertTask(taskValuesToSave2);
-
-                task_name = "Tom";
-                unit_code = "Tom";
-                due_date = "27/05/2017";
-                urgent = "true";
-                important = "true";
-                comments = "Testing3";
-
-                /*Place values into the array for saving*/
-                String[] taskValuesToSave3 = {task_name,unit_code,due_date,urgent,important,comments};
-
-                /*Save Values into the database*/
-                database.insertTask(taskValuesToSave3);
             }
         });
 

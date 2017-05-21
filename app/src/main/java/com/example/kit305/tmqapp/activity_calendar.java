@@ -4,6 +4,7 @@ package com.example.kit305.tmqapp;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -17,12 +18,19 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 import com.github.sundeepk.compactcalendarview.domain.Event;
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.appindexing.Thing;
+import com.google.android.gms.common.api.GoogleApiClient;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -38,11 +46,23 @@ public class activity_calendar extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     private NavigationView mNavigation;
     private ActionBarDrawerToggle mToggle;
+    TextView calendarheader;
+
+    tmqAppDatabasehandler database;
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
+
+        database = new tmqAppDatabasehandler(this);
+
+        calendarheader = (TextView) findViewById(R.id.Calendar_Date);
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         mNavigation = (NavigationView) findViewById(R.id.navigationView);
@@ -77,12 +97,22 @@ public class activity_calendar extends AppCompatActivity {
         mToggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        final CompactCalendarView compactCalendar = (CompactCalendarView)findViewById(R.id.compactcalendar_view);
+
+
+        final CompactCalendarView compactCalendar = (CompactCalendarView) findViewById(R.id.compactcalendar_view);
 
         compactCalendar.setFirstDayOfWeek(Calendar.MONDAY);
+        calendarheader.setText(compactCalendar.getFirstDayOfCurrentMonth().toString());
 
-        Event ev1 = new Event(Color.RED,1495352507L,"Testing Event");
-        compactCalendar.addEvent(ev1);
+        /*Get events from database*/
+        List<Event> calendarEvents = database.getAllEventDates();
+
+        /*Loop over list and add events*/
+        for(Event event : calendarEvents){
+            Log.d("Calendar_Activity","Adding Event");
+            compactCalendar.addEvent(event, false);
+        }
+
 
         compactCalendar.setListener(new CompactCalendarView.CompactCalendarViewListener() {
             @Override
@@ -94,9 +124,19 @@ public class activity_calendar extends AppCompatActivity {
             @Override
             public void onMonthScroll(Date firstDayOfNewMonth) {
                 Log.d("CalendarView", "Month was scrolled to: " + firstDayOfNewMonth);
+
+                calendarheader.setText(firstDayOfNewMonth.toString());
             }
         });
     }
+
+    private void addCalendar(){
+
+
+    }
+
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

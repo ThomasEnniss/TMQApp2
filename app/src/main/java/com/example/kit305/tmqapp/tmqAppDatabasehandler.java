@@ -7,7 +7,17 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.*;
+import android.graphics.Color;
+import android.provider.ContactsContract;
 import android.util.Log;
+
+import com.github.sundeepk.compactcalendarview.domain.Event;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 public class tmqAppDatabasehandler extends SQLiteOpenHelper {
 
@@ -199,4 +209,78 @@ public class tmqAppDatabasehandler extends SQLiteOpenHelper {
 
         return cursor.getString(cursor.getColumnIndex(COLUMN_NAME_TMQ_SCORE));
     }
+    public List<Event> getAllEventDates(){
+
+        List<Event> eventList= new ArrayList<>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String[] columnsToQuery = {COLUMN_NAME_DUE_DATE,COLUMN_NAME_URGENT,COLUMN_NAME_IMPORTANT};
+
+        Cursor cursor = db.query(TASK_TABLE_NAME,columnsToQuery,null,null,null,null,null);
+
+
+
+        while(cursor.moveToNext()){
+            String temp_urgent_value = cursor.getString(cursor.getColumnIndex(COLUMN_NAME_URGENT));
+            String temp_important_value = cursor.getString(cursor.getColumnIndex(COLUMN_NAME_IMPORTANT));
+            String temp_date_string = cursor.getString(cursor.getColumnIndex(COLUMN_NAME_DUE_DATE));
+            Event newEvent;
+
+
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+            Log.d("SQlLite",temp_date_string);
+
+            Date date = null;
+
+            try {
+                date = sdf.parse(temp_date_string);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+
+            long millis = date.getTime();
+            Log.d("SQlLite", Long.toString(millis));
+
+
+
+            if(temp_urgent_value.equals("false")){
+
+
+
+                if(temp_important_value.equals("false")){
+
+                    newEvent = new Event(Color.rgb(106, 150, 31), millis + 'L', "Testing Event");
+
+                    eventList.add(newEvent);
+                }else{
+
+                    newEvent = new Event(Color.rgb(245, 199, 0), millis + 'L', "Testing Event");
+
+                    eventList.add(newEvent);
+                }
+            }else{
+
+
+
+                if(temp_important_value.equals("false")){
+
+                    newEvent = new Event(Color.rgb(255, 102, 0), millis + 'L', "Testing Event");
+
+                    eventList.add(newEvent);
+                }else{
+
+                    newEvent = new Event(Color.rgb(193, 37, 82), millis + 'L', "Testing Event");
+
+                    eventList.add(newEvent);
+                }
+            }
+        }
+
+        return eventList;
+
+    }
+
 }

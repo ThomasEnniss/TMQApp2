@@ -79,5 +79,11 @@
         <item>4</item>
         <item>5</item>
     </string-array>
+
+    <!--Strings for calendar-->
+    <string name="calendar_not_urgent_not_important">Not Urgent and Not Important</string>
+    <string name="calendar_not_urgent_important">Not Urgent but Important</string>
+    <string name="calendar_urgent_not_important">Urgent but not Important</string>
+    <string name="calendar_urgent_important">Urgent and Important</string>
 </resources>
 
