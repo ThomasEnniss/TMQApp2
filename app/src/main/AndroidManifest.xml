@@ -8,20 +8,17 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".dashboard" >
+        <activity android:name=".dashboard">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity_calendar"/>
-        <activity android:name=".new_task" >
-
-        </activity>
-        <activity android:name=".questionaire">
-
-        </activity>
+        <activity android:name=".activity_calendar" />
+        <activity android:name=".new_task"></activity>
+        <activity android:name=".questionaire"></activity>
+        <activity android:name=".questionnaireResults"></activity>
     </application>
 
 </manifest>

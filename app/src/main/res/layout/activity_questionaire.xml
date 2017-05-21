@@ -38,6 +38,7 @@
                     android:layout_below="@id/page_title"
                     android:paddingTop="15dp"
                     android:text="@string/questionnaire_description_1" />
+
                 <TextView
                     android:id="@+id/page_description_2"
                     android:layout_width="match_parent"
@@ -504,7 +505,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/question18"
-                    android:layout_centerHorizontal="true" />
+                    android:layout_centerHorizontal="true"
+                    android:onClick="calculateScore"/>
             </RelativeLayout>
 
     </ScrollView>

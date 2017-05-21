@@ -7,14 +7,37 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 
 public class questionaire extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     private NavigationView mNavigation;
     private ActionBarDrawerToggle mToggle;
+
+    Spinner question1;
+    Spinner question2;
+    Spinner question3;
+    Spinner question4;
+    Spinner question5;
+    Spinner question6;
+    Spinner question7;
+    Spinner question8;
+    Spinner question9;
+    Spinner question10;
+    Spinner question11;
+    Spinner question12;
+    Spinner question13;
+    Spinner question14;
+    Spinner question15;
+    Spinner question16;
+    Spinner question17;
+    Spinner question18;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,24 +81,24 @@ public class questionaire extends AppCompatActivity {
     }
 
     public void initialiseSpinners() {
-        Spinner question1 = (Spinner) findViewById(R.id.spinner1);
-        Spinner question2 = (Spinner) findViewById(R.id.spinner2);
-        Spinner question3 = (Spinner) findViewById(R.id.spinner3);
-        Spinner question4 = (Spinner) findViewById(R.id.spinner4);
-        Spinner question5 = (Spinner) findViewById(R.id.spinner5);
-        Spinner question6 = (Spinner) findViewById(R.id.spinner6);
-        Spinner question7 = (Spinner) findViewById(R.id.spinner7);
-        Spinner question8 = (Spinner) findViewById(R.id.spinner8);
-        Spinner question9 = (Spinner) findViewById(R.id.spinner9);
-        Spinner question10 = (Spinner) findViewById(R.id.spinner10);
-        Spinner question11 = (Spinner) findViewById(R.id.spinner11);
-        Spinner question12 = (Spinner) findViewById(R.id.spinner12);
-        Spinner question13 = (Spinner) findViewById(R.id.spinner13);
-        Spinner question14 = (Spinner) findViewById(R.id.spinner14);
-        Spinner question15 = (Spinner) findViewById(R.id.spinner15);
-        Spinner question16 = (Spinner) findViewById(R.id.spinner16);
-        Spinner question17 = (Spinner) findViewById(R.id.spinner17);
-        Spinner question18 = (Spinner) findViewById(R.id.spinner18);
+        question1 = (Spinner) findViewById(R.id.spinner1);
+        question2 = (Spinner) findViewById(R.id.spinner2);
+        question3 = (Spinner) findViewById(R.id.spinner3);
+        question4 = (Spinner) findViewById(R.id.spinner4);
+        question5 = (Spinner) findViewById(R.id.spinner5);
+        question6 = (Spinner) findViewById(R.id.spinner6);
+        question7 = (Spinner) findViewById(R.id.spinner7);
+        question8 = (Spinner) findViewById(R.id.spinner8);
+        question9 = (Spinner) findViewById(R.id.spinner9);
+        question10 = (Spinner) findViewById(R.id.spinner10);
+        question11 = (Spinner) findViewById(R.id.spinner11);
+        question12 = (Spinner) findViewById(R.id.spinner12);
+        question13 = (Spinner) findViewById(R.id.spinner13);
+        question14 = (Spinner) findViewById(R.id.spinner14);
+        question15 = (Spinner) findViewById(R.id.spinner15);
+        question16 = (Spinner) findViewById(R.id.spinner16);
+        question17 = (Spinner) findViewById(R.id.spinner17);
+        question18 = (Spinner) findViewById(R.id.spinner18);
 
         ArrayAdapter<CharSequence> adapter =  ArrayAdapter.createFromResource(this,R.array.questionaire_options, android.R.layout.simple_spinner_item);
 
@@ -108,5 +131,47 @@ public class questionaire extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void calculateScore(View view) {
+        float value1 = Float.parseFloat(question1.getSelectedItem().toString());
+        float value2 = Float.parseFloat(question2.getSelectedItem().toString());
+        float value3 = Float.parseFloat(question3.getSelectedItem().toString());
+        float value4 = Float.parseFloat(question4.getSelectedItem().toString());
+        float value5 = Float.parseFloat(question5.getSelectedItem().toString());
+        float value6 = Float.parseFloat(question6.getSelectedItem().toString());
+        float value7 = Float.parseFloat(question7.getSelectedItem().toString());
+        float value8 = Float.parseFloat(question8.getSelectedItem().toString());
+        float value9 = Float.parseFloat(question9.getSelectedItem().toString());
+        float value10 = Float.parseFloat(question10.getSelectedItem().toString());
+        float value11 = Float.parseFloat(question11.getSelectedItem().toString());
+        float value12 = Float.parseFloat(question12.getSelectedItem().toString());
+        float value13 = Float.parseFloat(question13.getSelectedItem().toString());
+        float value14 = Float.parseFloat(question14.getSelectedItem().toString());
+        float value15 = Float.parseFloat(question15.getSelectedItem().toString());
+        float value16 = Float.parseFloat(question16.getSelectedItem().toString());
+        float value17 = Float.parseFloat(question17.getSelectedItem().toString());
+        float value18 = Float.parseFloat(question18.getSelectedItem().toString());
+
+        float categoryAScore = (((value1 + value2 + value3 + value4 + value5 + value6 + value7) / 35f) * 100f);
+        float categoryBScore = ((value8 + value9 + value10 + value11 + value12 + value13) / 30f) * 100f;
+        float categoryCScore = ((value14 + value15 + value16 + value17 + value18) / 25f) * 100f;
+        float finalScore = ((categoryAScore + categoryBScore + categoryCScore) / 300f) * 100f;
+
+        Log.d("Category A", Float.toString(categoryAScore));
+        Log.d("Category B", Float.toString(categoryBScore));
+        Log.d("Category C", Float.toString(categoryCScore));
+        Log.d("TMQ Score", Float.toString(finalScore));
+
+        jumpToResults(categoryAScore, categoryBScore, categoryCScore, finalScore);
+    }
+
+    public void jumpToResults(float scoreA, float scoreB, float scoreC, float scoreD) {
+        Intent intent = new Intent(questionaire.this, questionnaireResults.class);
+        intent.putExtra("categoryA", Float.toString(scoreA));
+        intent.putExtra("categoryB", Float.toString(scoreB));
+        intent.putExtra("categoryC", Float.toString(scoreC));
+        intent.putExtra("finalScore", Float.toString(scoreD));
+        startActivity(intent);
     }
 }
