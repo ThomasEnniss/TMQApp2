@@ -65,6 +65,7 @@ public class tmqAppDatabasehandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(SQL_CREATE_TASK_TABLE);
         db.execSQL(SQL_CREATE_TMQ_TABLE);
+
         setupTMQTable();
         this.db = db;
     }
@@ -91,7 +92,6 @@ public class tmqAppDatabasehandler extends SQLiteOpenHelper {
         values.put(COLUMN_NAME_COMMENTS,taskValues[5]);
 
         long newRowId = db.insert(TASK_TABLE_NAME,null,values);
-
 
 
     }

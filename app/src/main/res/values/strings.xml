@@ -1,12 +1,11 @@
 <resources>
-    <string name="app_name">TMQApp</string>
+    <string name="app_name">TMQ App</string>
     <string name="title_question">Questionaire</string>
-    <string name="title_activity_dashboard">Dashboard</string>
-    <string name="title_new">New Task</string>
+    <string name="title_activity_dashboard">Task Breakdown</string>
     <string name="title_activity_calendar">Calendar</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
-    <string name="title_activity_new_task">NewTask</string>
+    <string name="title_activity_new_task">Add Task</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="title_activity_questionaire">Questionaire</string>
@@ -19,8 +18,7 @@
     <!--Dashboard Strings-->
     <string name="dashboard_first_string">You currently have</string>
     <string name="dashboard_second_string">tasks remaining!</string>
-    <string name="dashboard_third_string">Your TMQ Score:</string>
-    <string name="dashboard_fourth_string">69/100</string>
+    <string name="dashboard_third_string">TMQ Score</string>
 
 
     <!--Questionaire Strings-->

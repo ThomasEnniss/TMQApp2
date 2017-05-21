@@ -60,21 +60,21 @@ public class new_task extends AppCompatActivity {
 
         final tmqAppDatabasehandler database = new tmqAppDatabasehandler(this);
 
-        Button saveButton = (Button)findViewById(R.id.button3);
+        Button saveButton = (Button)findViewById(R.id.saveButton);
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 /*Get the indiviual form widgets so we can retrieve their values*/
-                EditText task_name_entry_field = (EditText)findViewById(R.id.editText3);
-                EditText unit_code_entry_field = (EditText)findViewById(R.id.editText4);
-                EditText due_date_entry_field = (EditText)findViewById(R.id.editText5);
+                EditText task_name_entry_field = (EditText)findViewById(R.id.nameText);
+                EditText unit_code_entry_field = (EditText)findViewById(R.id.codeText);
+                EditText due_date_entry_field = (EditText)findViewById(R.id.dateText);
 
-                Switch urgent_switch = (Switch)findViewById(R.id.switch1);
-                Switch important_switch = (Switch)findViewById(R.id.switch2);
+                Switch urgent_switch = (Switch)findViewById(R.id.urgentSwitch);
+                Switch important_switch = (Switch)findViewById(R.id.importantSwitch);
 
-                EditText comments_section = (EditText)findViewById(R.id.editText);
+                EditText comments_section = (EditText)findViewById(R.id.commentText);
 
                 /*We retrieve the values and get them ready to place in an array*/
 
@@ -91,15 +91,20 @@ public class new_task extends AppCompatActivity {
                 /*Save Values into the database*/
                 database.insertTask(taskValuesToSave);
 
+                Intent dashboardIntent = new Intent(new_task.this, dashboard.class);
+                startActivity(dashboardIntent);
             }
         });
 
-        Button cancelButton = (Button)findViewById(R.id.button4);
+        Button cancelButton = (Button)findViewById(R.id.cancelButton);
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 database.emptyDatabase();
+
+                Intent dashboardIntent = new Intent(new_task.this, dashboard.class);
+                startActivity(dashboardIntent);
             }
         });
 

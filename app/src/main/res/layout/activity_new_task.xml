@@ -9,213 +9,219 @@
     android:orientation="vertical"
     tools:context="com.example.kit305.tmqapp.dashboard">
 
-    <RelativeLayout
-        android:id="@+id/container"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context="com.example.kit305.tmqapp.new_task">
+        android:fitsSystemWindows="true" >
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentRight="false"
-            android:layout_below="@+id/textView2"
-            android:width="120dp"
-            android:paddingTop="10dp"
-            android:text="Unit Code"
-            android:textAlignment="center"
-            android:textColor="@android:color/black" />
-
-        <TextView
-            android:id="@+id/textView5"
-
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentRight="false"
-            android:layout_below="@+id/textView4"
-            android:width="120dp"
-            android:paddingTop="10dp"
-            android:text="Urgent?"
-            android:textAlignment="center"
-            android:textColor="@android:color/black" />
-
-        <TextView
-            android:id="@+id/textView4"
-
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentRight="false"
-            android:layout_below="@+id/textView3"
-            android:width="120dp"
-            android:paddingTop="10dp"
-            android:text="Due Date"
-            android:textAlignment="center"
-            android:textColor="@android:color/black" />
-
-        <TextView
-            android:id="@+id/textView7"
-
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentRight="false"
-            android:layout_below="@+id/textView6"
-            android:width="120dp"
-            android:paddingTop="10dp"
-            android:text="Comments:"
-            android:textAlignment="center"
-            android:textColor="@android:color/black" />
-
-        <TextView
-            android:id="@+id/textView6"
-
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentRight="false"
-            android:layout_below="@+id/textView5"
-            android:width="120dp"
-            android:paddingTop="10dp"
-            android:text="Important?"
-            android:textAlignment="center"
-            android:textColor="@android:color/black" />
-
-        <TextView
-            android:id="@+id/textView"
+        <RelativeLayout
+            android:id="@+id/activity_new_task"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_centerInParent="false"
-            android:paddingTop="10dp"
-            android:text="New Task"
-            android:textAlignment="center"
-            android:textColor="@android:color/black"
-            android:textSize="30sp" />
-
-        <TextView
-            android:id="@+id/textView2"
-
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentRight="false"
-            android:layout_below="@+id/textView"
-            android:width="120dp"
-            android:paddingTop="10dp"
-            android:text="Task Name"
-            android:textAlignment="center"
-            android:textColor="@android:color/black" />
-
-        <EditText
-            android:id="@+id/editText"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/textView7"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
-            android:ems="10"
-            android:inputType="textMultiLine" />
-
-        <EditText
-            android:id="@+id/editText3"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_above="@+id/textView3"
-            android:layout_alignParentEnd="true"
-            android:layout_toEndOf="@+id/textView2"
-            android:layout_toRightOf="@+id/textView2"
-            android:ems="10"
-            android:inputType="textPersonName" />
-
-        <EditText
-            android:id="@+id/editText4"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_alignParentEnd="true"
-            android:layout_below="@+id/editText3"
-            android:layout_toEndOf="@+id/textView3"
-            android:layout_toRightOf="@+id/textView3"
-            android:ems="10"
-            android:inputType="textPersonName" />
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_alignEnd="@+id/editText"
-            android:layout_alignParentEnd="true"
-            android:layout_alignRight="@+id/editText"
-            android:layout_below="@+id/editText4"
-            android:layout_toEndOf="@+id/editText5"
-            app:srcCompat="@drawable/ic_date_range_black_24dp"
-            android:layout_toRightOf="@+id/editText5"
-            android:layout_alignBottom="@+id/editText5" />
-
-        <Switch
-            android:id="@+id/switch1"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_above="@+id/textView6"
-            android:layout_alignParentRight="false"
-            android:layout_alignParentStart="false"
-            android:layout_marginLeft="70dp"
-            android:layout_toEndOf="@+id/textView5"
-            android:layout_toRightOf="@+id/textView5" />
-
-        <Switch
-            android:id="@+id/switch2"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_below="@+id/switch1"
-            android:layout_marginLeft="70dp"
-            android:layout_toEndOf="@+id/textView6"
-            android:layout_toRightOf="@+id/textView6" />
-
-        <Button
-            android:id="@+id/button3"
-            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/editText"
-            android:layout_alignStart="@+id/editText"
-            android:layout_below="@+id/editText"
-            android:layout_marginLeft="40dp"
-            android:text="Save Task" />
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:paddingLeft="45dp"
+            android:paddingRight="45dp"
+            android:paddingTop="@dimen/activity_vertical_margin" >
 
-        <Button
-            android:id="@+id/button4"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:text="Cancel"
-            android:layout_below="@+id/editText"
-            android:layout_toLeftOf="@+id/imageView"
-            android:layout_toStartOf="@+id/imageView" />
+            <TextView
+                android:id="@+id/page_title"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_centerInParent="false"
+                android:paddingTop="10dp"
+                android:text="@string/title_activity_new_task"
+                android:textAlignment="center"
+                android:textSize="30sp" />
 
-        <EditText
-            android:id="@+id/editText5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/editText4"
-            android:layout_toEndOf="@+id/textView4"
-            android:layout_toRightOf="@+id/textView4"
-            android:ems="10"
-            android:inputType="date" />
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/nameLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginBottom="15dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="15dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="false"
+                android:layout_below="@id/page_title"
+                android:width="120dp"
+                android:text="Task Name" />
+
+            <TextView
+                android:id="@+id/codeLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginBottom="15dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="15dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="false"
+                android:layout_below="@id/nameLabel"
+                android:width="120dp"
+                android:text="Unit Code" />
+
+            <TextView
+                android:id="@+id/dateLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginBottom="15dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="15dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="false"
+                android:layout_below="@+id/codeLabel"
+                android:width="120dp"
+                android:text="Due Date" />
+
+            <TextView
+                android:id="@+id/urgentLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginBottom="15dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="25dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="false"
+                android:layout_below="@id/dateLabel"
+                android:width="120dp"
+                android:text="Urgent?" />
+
+            <TextView
+                android:id="@+id/importantLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginBottom="15dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="25dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="false"
+                android:layout_below="@+id/urgentLabel"
+                android:width="120dp"
+                android:text="Important?" />
+
+            <TextView
+                android:id="@+id/commentLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginBottom="15dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="25dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="false"
+                android:layout_below="@+id/importantLabel"
+                android:width="120dp"
+                android:text="Comments:" />
+
+            <EditText
+                android:id="@+id/nameText"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:paddingRight="10dp"
+                android:layout_below="@+id/page_title"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignTop="@+id/nameLabel"
+                android:ems="8"
+                android:inputType="textPersonName"
+                android:layout_toRightOf="@+id/nameLabel"
+                android:layout_toEndOf="@+id/nameLabel" />
+
+
+            <EditText
+                android:id="@+id/codeText"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:paddingRight="10dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignBottom="@id/codeLabel"
+                android:ems="8"
+                android:inputType="textPersonName"
+                android:layout_toRightOf="@+id/nameLabel"
+                android:layout_toEndOf="@+id/nameLabel"
+                android:layout_below="@+id/nameLabel" />
+
+
+            <EditText
+                android:id="@+id/dateText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="15dp"
+                android:paddingRight="10dp"
+                android:paddingTop="15dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignBottom="@id/dateLabel"
+                android:ems="8"
+                android:inputType="date"
+                android:layout_below="@+id/codeLabel"
+                android:layout_toRightOf="@+id/dateLabel"
+                android:layout_toEndOf="@+id/dateLabel" />
+
+            <Switch
+                android:id="@+id/urgentSwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:paddingRight="10dp"
+                android:paddingTop="15dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignBottom="@+id/urgentLabel"
+                android:layout_below="@+id/dateLabel" />
+
+            <Switch
+                android:id="@+id/importantSwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:paddingRight="10dp"
+                android:paddingTop="15dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignBottom="@+id/importantLabel"
+                android:layout_below="@+id/urgentLabel" />
+
+            <EditText
+                android:id="@+id/commentText"
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:layout_marginBottom="35dp"
+                android:paddingRight="10dp"
+                android:layout_below="@+id/commentLabel"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:ems="8"
+                android:inputType="textMultiLine" />
+
+            <Button
+                android:id="@+id/saveButton"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/commentText"
+                android:layout_alignStart="@+id/commentText"
+                android:layout_below="@+id/commentText"
+                android:layout_marginLeft="40dp"
+                android:text="Save" />
+
+            <Button
+                android:id="@+id/cancelButton"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_alignRight="@+id/commentText"
+                android:layout_alignParentBottom="true"
+                android:layout_toRightOf="@+id/saveButton"
+                android:layout_toEndOf="@+id/saveButton"
+                android:layout_marginRight="40dp"
+                android:text="Cancel" />
+
+        </RelativeLayout>
+
+    </ScrollView>
 
     <android.support.design.widget.NavigationView
         android:id="@+id/navigationView"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_width="200dp"
+        android:layout_height="260dp"
         android:layout_gravity="start"
+        android:background="@color/colorPrimary"
         app:menu="@menu/navigation_menu" />
 
 </android.support.v4.widget.DrawerLayout>
