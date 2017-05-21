@@ -32,12 +32,16 @@ public class new_task extends AppCompatActivity {
                         startActivity(newTaskIntent);
                         return true;
                     case R.id.questionnaire:
-                        Intent calendarIntent = new Intent(new_task.this, questionaire.class);
-                        startActivity(calendarIntent);
+                        Intent questionaireIntent = new Intent(new_task.this, questionaire.class);
+                        startActivity(questionaireIntent);
                         return true;
                     case R.id.add_task:
                         Intent addTaskIntent = new Intent(new_task.this, new_task.class);
                         startActivity(addTaskIntent);
+                        return true;
+                    case R.id.task_calendar:
+                        Intent calendarIntent = new Intent(new_task.this, activity_calendar.class);
+                        startActivity(calendarIntent);
                         return true;
                 }
 
