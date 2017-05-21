@@ -1,8 +1,15 @@
 package com.example.kit305.tmqapp;
 
+import android.content.Intent;
 import android.graphics.Color;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Description;
@@ -16,6 +23,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class dashboard extends AppCompatActivity {
+    private DrawerLayout mDrawerLayout;
+    private NavigationView mNavigation;
+    private ActionBarDrawerToggle mToggle;
+
     int taskCount[] = { 1, 2, 3, 5 };
     String taskClass[] = { "U-I", "NU-I", "U-NI", "NU-NI" };
 
@@ -24,7 +35,41 @@ public class dashboard extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dashboard);
 
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+        mNavigation = (NavigationView) findViewById(R.id.navigationView);
+        mNavigation.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.dashboard:
+                        Intent newTaskIntent = new Intent(dashboard.this, dashboard.class);
+                        startActivity(newTaskIntent);
+                        return true;
+                    case R.id.questionnaire:
+                        Intent calendarIntent = new Intent(dashboard.this, questionaire.class);
+                        startActivity(calendarIntent);
+                        return true;
+                }
+
+                return false;
+            }
+        });
+
+        mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.menu_open, R.string.menu_close);
+        mDrawerLayout.addDrawerListener(mToggle);
+        mToggle.syncState();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         setupPieChart();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (mToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     private void setupPieChart() {
@@ -51,7 +96,8 @@ public class dashboard extends AppCompatActivity {
         chart.setCenterText(Integer.toString(tallyTaskCount()));
         chart.setCenterTextSize(48);
         chart.setCenterTextColor(Color.WHITE);
-        chart.setHoleRadius(70f);
+        chart.setHoleRadius(55f);
+        chart.setTransparentCircleRadius(60f);
         chart.setHoleColor(R.color.colorPrimaryDark);
 
         chart.animateY(1000);
