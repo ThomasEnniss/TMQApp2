@@ -10,14 +10,15 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="title_activity_questionaire">Questionaire</string>
-    <string name="dashboard_first_string">You currently have:</string>
+
+    <!--Dashboard Strings-->
+    <string name="dashboard_first_string">You currently have</string>
     <string name="dashboard_second_string">tasks remaining!</string>
-    <string name="dashboard_third_string">Your TMQ Score is:</string>
+    <string name="dashboard_third_string">Your TMQ Score:</string>
     <string name="dashboard_fourth_string">69/100</string>
 
 
-    <!--Questionaire Questions-->
-
+    <!--Questionaire Strings-->
     <!--Category Strings-->
     <string name="category_A">Category A</string>
     <string name="category_B">Category B</string>
@@ -54,7 +55,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string-array name="questionaire_options">
-        <item>0</item>
         <item>1</item>
         <item>2</item>
         <item>3</item>

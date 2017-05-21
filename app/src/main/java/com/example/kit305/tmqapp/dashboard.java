@@ -35,7 +35,7 @@ public class dashboard extends AppCompatActivity {
 
         PieDataSet dataSet = new PieDataSet(pieEntries, "Tasks");
         PieData chartData = new PieData(dataSet);
-        PieChart chart = (PieChart) findViewById(R.id.chart);
+        PieChart chart = (PieChart) findViewById(R.id.pieChart);
         Description description = new Description();
         Legend chartLegend = chart.getLegend();
 
