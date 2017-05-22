@@ -7,6 +7,7 @@ import android.util.Log;
  */
 
 public class Task {
+    public Integer taskID;
     public String taskName;
     public String taskCode;
     public String dueDate;
@@ -14,7 +15,8 @@ public class Task {
     public String isImportant;
     public String taskComment;
 
-    public Task(String name, String code, String date, String urgent, String important, String notes) {
+    public Task(Integer newid, String name, String code, String date, String urgent, String important, String notes) {
+        taskID = newid;
         taskName = name;
         taskCode = code;
         dueDate = date;
@@ -26,6 +28,7 @@ public class Task {
     //////////////////////////
     //** Variable getters **//
     //////////////////////////
+    public Integer getID(){return taskID;}
     public String getName() {
         return taskName;
     }
@@ -48,6 +51,7 @@ public class Task {
     //////////////////////////
     //** Variable setters **//
     //////////////////////////
+    public void setID(Integer newId){taskID = newId;}
     public void setName(String name) {
         taskName = name;
     }
@@ -68,6 +72,7 @@ public class Task {
     }
 
     public void logTaskDetails() {
+        Log.d("Task Id", Integer.toString(taskID));
         Log.d("Task Name", taskName);
         Log.d("Unit Code", taskCode);
         Log.d("Due Date", dueDate);

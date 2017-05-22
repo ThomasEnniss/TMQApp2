@@ -35,7 +35,6 @@ public class tmqAppDatabasehandler extends SQLiteOpenHelper {
     private static final String COLUMN_NAME_TMQ_ID = "tmq_id";
     private static final String COLUMN_NAME_TMQ_SCORE = "tmq_score";
 
-    private SQLiteDatabase db;
 
     private static final String SQL_CREATE_TASK_TABLE =
             "CREATE TABLE " + TASK_TABLE_NAME + " (" +
@@ -65,16 +64,17 @@ public class tmqAppDatabasehandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(SQL_CREATE_TASK_TABLE);
         db.execSQL(SQL_CREATE_TMQ_TABLE);
-
-        setupTMQTable();
-        this.db = db;
+        setupTMQTable(db);
     }
 
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         String SQL_DELETE_ENTRIES = "DROP TABLE IF EXISTS " + TASK_TABLE_NAME;
+        String SQL_DELETE_SCORES = "DROP TABLE IF EXISTS " + TMQ_TABLE_NAME;
         db.execSQL(SQL_DELETE_ENTRIES);
+        db.execSQL(SQL_DELETE_SCORES);
         this.onCreate(db);
     }
+
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         onUpgrade(db, oldVersion, newVersion);
     }
@@ -165,9 +165,7 @@ public class tmqAppDatabasehandler extends SQLiteOpenHelper {
 
     }
 
-    private void setupTMQTable(){
-
-        SQLiteDatabase db = this.getWritableDatabase();
+    private void setupTMQTable(SQLiteDatabase db){
 
         ContentValues values = new ContentValues();
         values.put(COLUMN_NAME_TMQ_ID,0);
@@ -209,6 +207,7 @@ public class tmqAppDatabasehandler extends SQLiteOpenHelper {
 
         return cursor.getString(cursor.getColumnIndex(COLUMN_NAME_TMQ_SCORE));
     }
+
     public List<Event> getAllEventDates(){
 
         List<Event> eventList= new ArrayList<>();
@@ -283,4 +282,95 @@ public class tmqAppDatabasehandler extends SQLiteOpenHelper {
 
     }
 
+    public List<Task> loadTasksByDate(String dateToLoad){
+
+        List<Task> loadedTaskList  = new ArrayList<>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String[] columnsToQuery = {COLUMN_NAME_TASK_ID,COLUMN_NAME_TASK_NAME,COLUMN_NAME_TASK_UNIT_CODE,COLUMN_NAME_DUE_DATE,COLUMN_NAME_URGENT,COLUMN_NAME_IMPORTANT,COLUMN_NAME_COMMENTS};
+
+        String selection = COLUMN_NAME_DUE_DATE + " = ?";
+        String[] selectionArgs = {dateToLoad};
+
+        Cursor cursor = db.query(TASK_TABLE_NAME,columnsToQuery,selection,selectionArgs,null,null,null);
+
+
+
+        while(cursor.moveToNext()) {
+            Integer temp_task_id = cursor.getInt(cursor.getColumnIndex(COLUMN_NAME_TASK_ID));
+            String temp_task_name_value = cursor.getString(cursor.getColumnIndex(COLUMN_NAME_TASK_NAME));
+            String temp_unit_code_value = cursor.getString(cursor.getColumnIndex(COLUMN_NAME_TASK_UNIT_CODE));
+            String temp_due_date_string = cursor.getString(cursor.getColumnIndex(COLUMN_NAME_DUE_DATE));
+            String temp_urgent_value = cursor.getString(cursor.getColumnIndex(COLUMN_NAME_URGENT));
+            String temp_important_value = cursor.getString(cursor.getColumnIndex(COLUMN_NAME_IMPORTANT));
+            String temp_comments_string = cursor.getString(cursor.getColumnIndex(COLUMN_NAME_COMMENTS));
+
+            Task newTask = new Task(temp_task_id,temp_task_name_value,temp_unit_code_value,temp_due_date_string,temp_urgent_value,temp_important_value,temp_comments_string);
+
+            loadedTaskList.add(newTask);
+        }
+
+        return loadedTaskList;
+    }
+
+    public Task loadTaskByID(Integer IDToLoad){
+
+        Task newTask;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String[] columnsToQuery = {COLUMN_NAME_TASK_ID,COLUMN_NAME_TASK_NAME,COLUMN_NAME_TASK_UNIT_CODE,COLUMN_NAME_DUE_DATE,COLUMN_NAME_URGENT,COLUMN_NAME_IMPORTANT,COLUMN_NAME_COMMENTS};
+
+        String selection = COLUMN_NAME_TASK_ID + " = " + IDToLoad;
+
+
+        Cursor cursor = db.query(TASK_TABLE_NAME,columnsToQuery,selection,null,null,null,null);
+
+        cursor.moveToNext();
+            Integer temp_task_id = cursor.getInt(cursor.getColumnIndex(COLUMN_NAME_TASK_ID));
+            String temp_task_name_value = cursor.getString(cursor.getColumnIndex(COLUMN_NAME_TASK_NAME));
+            String temp_unit_code_value = cursor.getString(cursor.getColumnIndex(COLUMN_NAME_TASK_UNIT_CODE));
+            String temp_due_date_string = cursor.getString(cursor.getColumnIndex(COLUMN_NAME_DUE_DATE));
+            String temp_urgent_value = cursor.getString(cursor.getColumnIndex(COLUMN_NAME_URGENT));
+            String temp_important_value = cursor.getString(cursor.getColumnIndex(COLUMN_NAME_IMPORTANT));
+            String temp_comments_string = cursor.getString(cursor.getColumnIndex(COLUMN_NAME_COMMENTS));
+
+            newTask = new Task(temp_task_id,temp_task_name_value,temp_unit_code_value,temp_due_date_string,temp_urgent_value,temp_important_value,temp_comments_string);
+
+
+        return newTask;
+    }
+
+    public void updateTask(String[] updateValues,Integer taskID){
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+
+        ContentValues values = new ContentValues();
+
+        values.put(COLUMN_NAME_TASK_NAME, updateValues[0]);
+        values.put(COLUMN_NAME_TASK_UNIT_CODE, updateValues[1]);
+        values.put(COLUMN_NAME_DUE_DATE, updateValues[2]);
+        values.put(COLUMN_NAME_URGENT, updateValues[3]);
+        values.put(COLUMN_NAME_IMPORTANT, updateValues[4]);
+        values.put(COLUMN_NAME_COMMENTS, updateValues[5]);
+
+        String selection = COLUMN_NAME_TASK_ID + "=?";
+        String[] selectionArgs = {Integer.toString(taskID)};
+
+        int count = db.update(
+                TASK_TABLE_NAME,
+                values,
+                selection,
+                selectionArgs
+        );
+    }
+
+    public void deleteTask(Integer taskID){
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        db.delete(TASK_TABLE_NAME,COLUMN_NAME_TASK_ID + "=?", new String[]{Integer.toString(taskID)} );
+    }
 }

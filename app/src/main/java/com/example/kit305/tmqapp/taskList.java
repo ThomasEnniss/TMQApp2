@@ -35,13 +35,19 @@ public class taskList extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     private NavigationView mNavigation;
     private ActionBarDrawerToggle mToggle;
+    String dateToLoadtasks;
 
-    List<Task> taskList = new ArrayList<>();
+
+    tmqAppDatabasehandler database;
+
+    List<Task> taskList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_list);
+
+        database = new tmqAppDatabasehandler(this);
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         mNavigation = (NavigationView) findViewById(R.id.navigationView);
@@ -74,7 +80,14 @@ public class taskList extends AppCompatActivity {
         mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.menu_open, R.string.menu_close);
         mDrawerLayout.addDrawerListener(mToggle);
         mToggle.syncState();
+
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Intent intent = getIntent();
+        dateToLoadtasks = intent.getStringExtra("taskDate");
+
+        TextView taskListDateHeader = (TextView)findViewById(R.id.page_title);
+        taskListDateHeader.setText(dateToLoadtasks);
 
         populateTaskArray();
         createTaskList();
@@ -90,19 +103,7 @@ public class taskList extends AppCompatActivity {
     }
 
     public void populateTaskArray() {
-        //** THIS IS DATA USED ONLY FOR TESTING
-        //   PLEASE DELETE THIS SECTION OF THE CODE
-        //   ONCE YOU DECIDE TO PLUG DATA FROM SQLITE
-        for (int i = 0; i < 5; i++) {
-            Task newTask = new Task("Task " + Integer.toString(i), "KIT305", "30/05/2017", "false", "true", "This is a comment.");
-            taskList.add(i, newTask);
-            taskList.get(i).logTaskDetails();
-        }
-        //** END OF TEST DATA
-
-        ////////////////////////////////////////////////////////
-        //** INSERT YOUR SQL CODE HERE TO POPULATE taskList **//
-        ////////////////////////////////////////////////////////
+        taskList = database.loadTasksByDate(dateToLoadtasks);
     }
 
     public void createTaskList() {
@@ -137,19 +138,24 @@ public class taskList extends AppCompatActivity {
                     + "\n\n" + taskList.get(i).getComment()
             );
             //** Setting appropriate text colors according to task urgency/importance
-            if (taskList.get(i).getUrgent() == "true" && taskList.get(i).getImportant() == "true")
+            if (taskList.get(i).getUrgent().equals("true") && taskList.get(i).getImportant().equals("true"))
                 taskDetails.setTextColor(Color.rgb(193, 37, 82));
-            else if (taskList.get(i).getUrgent() == "true" && taskList.get(i).getImportant() == "false")
+            else if (taskList.get(i).getUrgent().equals("true") && taskList.get(i).getImportant().equals("false"))
                 taskDetails.setTextColor(Color.rgb(255, 102, 0));
-            else if (taskList.get(i).getUrgent() == "false" && taskList.get(i).getImportant() == "true")
+            else if (taskList.get(i).getUrgent().equals("false") && taskList.get(i).getImportant().equals("true"))
                 taskDetails.setTextColor(Color.rgb(245, 199, 0));
             else
                 taskDetails.setTextColor(Color.rgb(106, 150, 31));
 
             taskDetails.setClickable(true);
+            taskDetails.setId(taskList.get(i).getID());
             taskDetails.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
+                    Integer taskToLoad = v.getId();
+
                     Intent editIntent = new Intent(taskList.this, editTask.class);
+                    editIntent.putExtra("taskIdtoLoad", Integer.toString(taskToLoad));
+                    Log.d("Task_List",Integer.toString(taskToLoad));
                     startActivity(editIntent);
                 }
             });

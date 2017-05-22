@@ -17,10 +17,27 @@ public class editTask extends AppCompatActivity {
     private NavigationView mNavigation;
     private ActionBarDrawerToggle mToggle;
 
+    private Intent intent;
+    private tmqAppDatabasehandler database;
+    private Integer taskId;
+
+    /*Get the indiviual form widgets so we can retrieve their values*/
+    private EditText task_name_entry_field;
+    private EditText unit_code_entry_field;
+    private EditText due_date_entry_field;
+    private Switch urgent_switch;
+    private Switch important_switch;
+    private EditText comments_section;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new_task);
+        setContentView(R.layout.activity_edit_task);
+
+        database = new tmqAppDatabasehandler(this);
+        intent = getIntent();
+        taskId = Integer.parseInt(intent.getStringExtra("taskIdtoLoad"));
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         mNavigation = (NavigationView) findViewById(R.id.navigationView);
@@ -55,24 +72,22 @@ public class editTask extends AppCompatActivity {
         mToggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        task_name_entry_field = (EditText)findViewById(R.id.nameText);
+        unit_code_entry_field = (EditText)findViewById(R.id.codeText);
+        due_date_entry_field = (EditText)findViewById(R.id.dateText);
+        urgent_switch = (Switch)findViewById(R.id.urgentSwitch);
+        important_switch = (Switch)findViewById(R.id.importantSwitch);
+        comments_section = (EditText)findViewById(R.id.commentText);
+
+        prefillForm();
 
         final tmqAppDatabasehandler database = new tmqAppDatabasehandler(this);
 
-        Button saveButton = (Button)findViewById(R.id.saveButton);
+        Button updateButton = (Button)findViewById(R.id.updateButton);
 
-        saveButton.setOnClickListener(new View.OnClickListener() {
+        updateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                /*Get the indiviual form widgets so we can retrieve their values*/
-                EditText task_name_entry_field = (EditText)findViewById(R.id.nameText);
-                EditText unit_code_entry_field = (EditText)findViewById(R.id.codeText);
-                EditText due_date_entry_field = (EditText)findViewById(R.id.dateText);
-
-                Switch urgent_switch = (Switch)findViewById(R.id.urgentSwitch);
-                Switch important_switch = (Switch)findViewById(R.id.importantSwitch);
-
-                EditText comments_section = (EditText)findViewById(R.id.commentText);
 
                 /*We retrieve the values and get them ready to place in an array*/
 
@@ -87,22 +102,39 @@ public class editTask extends AppCompatActivity {
                 String[] taskValuesToSave = {task_name,unit_code,due_date,urgent,important,comments};
 
                 /*Save Values into the database*/
-                database.insertTask(taskValuesToSave);
+                database.updateTask(taskValuesToSave,taskId);
 
-                Intent listIntent = new Intent(editTask.this, taskList.class);
+                Intent listIntent = new Intent(editTask.this, activity_calendar.class);
                 startActivity(listIntent);
             }
         });
 
-        Button cancelButton = (Button)findViewById(R.id.cancelButton);
+        Button deleteButton = (Button)findViewById(R.id.deleteButton);
 
-        cancelButton.setOnClickListener(new View.OnClickListener() {
+        deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent listIntent = new Intent(editTask.this, taskList.class);
+
+                database.deleteTask(taskId);
+
+                Intent listIntent = new Intent(editTask.this, activity_calendar.class);
                 startActivity(listIntent);
             }
         });
+
+
+    }
+
+    private void prefillForm(){
+        Task taskToLoad = database.loadTaskByID(taskId);
+
+        task_name_entry_field.setText(taskToLoad.getName());
+        unit_code_entry_field.setText(taskToLoad.getCode());
+        due_date_entry_field.setText(taskToLoad.dueDate);
+        urgent_switch.setChecked(Boolean.parseBoolean(taskToLoad.getUrgent()));
+        important_switch.setChecked(Boolean.parseBoolean(taskToLoad.getImportant()));
+
+        comments_section.setText(taskToLoad.getComment());
 
 
     }

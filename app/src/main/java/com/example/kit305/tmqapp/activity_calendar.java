@@ -28,6 +28,7 @@ import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -97,12 +98,16 @@ public class activity_calendar extends AppCompatActivity {
         mToggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-
+        final DateFormat dfDisplay = new SimpleDateFormat("dd/MMM/yyyy");
+        final DateFormat dfSend = new SimpleDateFormat("dd/MM/yyyy");
 
         final CompactCalendarView compactCalendar = (CompactCalendarView) findViewById(R.id.compactcalendar_view);
 
+        Date intialheader_date = compactCalendar.getFirstDayOfCurrentMonth();
+
         compactCalendar.setFirstDayOfWeek(Calendar.MONDAY);
-        calendarheader.setText(compactCalendar.getFirstDayOfCurrentMonth().toString());
+
+        calendarheader.setText(dfDisplay.format(intialheader_date));
 
         /*Get events from database*/
         List<Event> calendarEvents = database.getAllEventDates();
@@ -113,28 +118,32 @@ public class activity_calendar extends AppCompatActivity {
             compactCalendar.addEvent(event, false);
         }
 
-
         compactCalendar.setListener(new CompactCalendarView.CompactCalendarViewListener() {
             @Override
             public void onDayClick(Date dateClicked) {
                 List<Event> events = compactCalendar.getEvents(dateClicked);
                 Log.d("CalendarView", "Day was clicked: " + dateClicked + " with events " + events);
+
+                Intent task_list_intent = new Intent(activity_calendar.this,taskList.class);
+
+                task_list_intent.putExtra("taskDate",dfSend.format(dateClicked));
+
+                Log.d("Calendar_Activity",dfSend.format(dateClicked));
+
+                startActivity(task_list_intent);
+
+
             }
 
             @Override
             public void onMonthScroll(Date firstDayOfNewMonth) {
                 Log.d("CalendarView", "Month was scrolled to: " + firstDayOfNewMonth);
+                Date scrollDate = firstDayOfNewMonth;
 
-                calendarheader.setText(firstDayOfNewMonth.toString());
+                calendarheader.setText(dfDisplay.format(scrollDate));
             }
         });
     }
-
-    private void addCalendar(){
-
-
-    }
-
 
 
 

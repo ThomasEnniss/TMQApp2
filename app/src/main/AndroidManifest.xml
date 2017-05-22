@@ -9,15 +9,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".dashboard">
-
-        </activity>
-        <activity android:name=".activity_calendar" />
-        <activity android:name=".taskList">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activity_calendar" />
+        <activity android:name=".taskList"/>
+        <activity android:name=".editTask"/>
         <activity android:name=".newTask"></activity>
         <activity android:name=".questionaire"></activity>
         <activity android:name=".questionnaireResults"></activity><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
