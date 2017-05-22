@@ -110,7 +110,6 @@ public class dashboard extends AppCompatActivity {
 
         chart.setData(chartData);
         dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
-        dataSet.setValueFormatter(new ChartValueFormatter());
         chartData.setDrawValues(false);
 
         description.setText("");
@@ -122,6 +121,7 @@ public class dashboard extends AppCompatActivity {
         chart.setCenterTextColor(Color.WHITE);
         chart.setHoleRadius(55f);
         chart.setTransparentCircleRadius(60f);
+        chart.setTransparentCircleColor(Color.BLACK);
         chart.setHoleColor(R.color.colorPrimaryDark);
 
         chart.animateY(1000);
