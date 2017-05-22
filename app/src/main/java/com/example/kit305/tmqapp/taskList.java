@@ -149,7 +149,8 @@ public class taskList extends AppCompatActivity {
             taskDetails.setClickable(true);
             taskDetails.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-
+                    Intent editIntent = new Intent(taskList.this, editTask.class);
+                    startActivity(editIntent);
                 }
             });
 
