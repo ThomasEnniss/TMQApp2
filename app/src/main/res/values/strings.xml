@@ -1,15 +1,11 @@
 <resources>
+    <!--Page Title Strings-->
     <string name="app_name">TMQ App</string>
-    <string name="title_question">Questionaire</string>
     <string name="title_activity_dashboard">Task Breakdown</string>
     <string name="title_activity_calendar">Calendar</string>
-    <string name="action_settings">Settings</string>
-    <string name="section_format">Hello World from section: %1$d</string>
     <string name="title_activity_new_task">Add Task</string>
     <string name="title_activity_edit_task">Task Details</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
-    <string name="title_activity_questionaire">Questionaire</string>
+    <string name="title_activity_questionaire">Questionnaire</string>
     <string name="title_activity_results">TMQ Results</string>
 
     <!--Menu Strings-->
@@ -49,7 +45,7 @@
     <string name="category_A_question_6">Do you have a clear idea of what  you want to accomplish during the next week?</string>
     <string name="category_A_question_7">Do you set and honor priorities?</string>
 
-    <string name="category_B_question_1">Do you often find yourself doing things which interfere with your school-work simply because you hate to say No to people?</string>
+    <string name="category_B_question_1">Do you often find yourself doing things which interfere with your school-work simply because you hate to say "no" to people?</string>
     <string name="category_B_question_2">Do you feel you are in charge of your own time, by and large?</string>
     <string name="category_B_question_3">On an average class day do you spend more time with personal grooming than doing schoolwork?</string>
     <string name="category_B_question_4">Do you believe that there is room  for improvement  in the way you  manage your time?</string>
@@ -67,9 +63,6 @@
     <string name="category_B_title">Time Attitudes Score:</string>
     <string name="category_C_title">Long-Range Planning:</string>
     <string name="category_D_title">Total TMQ Score:</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string-array name="questionaire_options">
         <item>1</item>

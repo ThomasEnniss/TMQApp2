@@ -55,9 +55,6 @@ public class newTask extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-
-
-
         final tmqAppDatabasehandler database = new tmqAppDatabasehandler(this);
 
         Button saveButton = (Button)findViewById(R.id.saveButton);
