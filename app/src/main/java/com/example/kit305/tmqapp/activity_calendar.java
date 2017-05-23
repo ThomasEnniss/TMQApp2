@@ -125,14 +125,12 @@ public class activity_calendar extends AppCompatActivity {
                 Log.d("CalendarView", "Day was clicked: " + dateClicked + " with events " + events);
 
                 Intent task_list_intent = new Intent(activity_calendar.this,taskList.class);
-
+                task_list_intent.putExtra("request","date");
                 task_list_intent.putExtra("taskDate",dfSend.format(dateClicked));
 
                 Log.d("Calendar_Activity",dfSend.format(dateClicked));
 
                 startActivity(task_list_intent);
-
-
             }
 
             @Override

@@ -35,7 +35,12 @@ public class taskList extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     private NavigationView mNavigation;
     private ActionBarDrawerToggle mToggle;
+
+    String request;
     String dateToLoadtasks;
+    String urgency;
+    String importance;
+    String priority;
 
 
     tmqAppDatabasehandler database;
@@ -83,13 +88,24 @@ public class taskList extends AppCompatActivity {
 
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        Intent intent = getIntent();
-        dateToLoadtasks = intent.getStringExtra("taskDate");
 
         TextView taskListDateHeader = (TextView)findViewById(R.id.page_title);
-        taskListDateHeader.setText(dateToLoadtasks);
+        Intent intent = getIntent();
+        request = intent.getStringExtra("request");
 
-        populateTaskArray();
+        if (request.equals("date")) {
+            dateToLoadtasks = intent.getStringExtra("taskDate");
+            taskList = database.loadTasksByDate(dateToLoadtasks);
+            taskListDateHeader.setText(dateToLoadtasks);
+        }
+        else {
+            priority = intent.getStringExtra("priority");
+            urgency = intent.getStringExtra("urgency");
+            importance = intent.getStringExtra("importance");
+            taskList = database.loadTaskByPriority(urgency, importance);
+            taskListDateHeader.setText(priority);
+        }
+
         createTaskList();
     }
 
@@ -100,11 +116,6 @@ public class taskList extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    public void populateTaskArray() {
-        /*First paremeter is ugency bool in string form, second parameter is importance bool in string form*/
-        taskList = database.loadTaskByPriority("true","true");
     }
 
     public void createTaskList() {

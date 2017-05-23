@@ -17,9 +17,12 @@ import android.widget.TextView;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.highlight.Highlight;
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
@@ -105,6 +108,45 @@ public class dashboard extends AppCompatActivity {
 
         PieData chartData = new PieData(dataSet);
         PieChart chart = (PieChart) findViewById(R.id.pieChart);
+        chart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+            @Override
+            public void onValueSelected(Entry e, Highlight h) {
+                PieEntry pe = (PieEntry) e;
+                Intent listIntent = new Intent(dashboard.this, taskList.class);
+
+                listIntent.putExtra("request", "priority");
+                if (pe.getLabel() == "U-I") {
+                    listIntent.putExtra("priority", "Urgent - Important");
+                    listIntent.putExtra("urgency", "true");
+                    listIntent.putExtra("importance", "true");
+                    startActivity(listIntent);
+                }
+                else if (pe.getLabel() == "U-NI") {
+                    listIntent.putExtra("priority", "Urgent - Not Important");
+                    listIntent.putExtra("urgency", "true");
+                    listIntent.putExtra("importance", "false");
+                    startActivity(listIntent);
+                }
+                else if (pe.getLabel() == "NU-I") {
+                    listIntent.putExtra("priority", "Not Urgent - Important");
+                    listIntent.putExtra("urgency", "false");
+                    listIntent.putExtra("importance", "true");
+                    startActivity(listIntent);
+                }
+                else {
+                    listIntent.putExtra("priority", "Not Urgent - Not Important");
+                    listIntent.putExtra("urgency", "false");
+                    listIntent.putExtra("importance", "false");
+                    startActivity(listIntent);
+                }
+            }
+
+            @Override
+            public void onNothingSelected() {
+
+            }
+        });
+
         Description description = new Description();
         Legend chartLegend = chart.getLegend();
 
