@@ -342,6 +342,38 @@ public class tmqAppDatabasehandler extends SQLiteOpenHelper {
         return newTask;
     }
 
+    public List<Task> loadTaskByPriority(String urgent, String important){
+
+        List<Task> loadedTaskList  = new ArrayList<>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String[] columnsToQuery = {COLUMN_NAME_TASK_ID,COLUMN_NAME_TASK_NAME,COLUMN_NAME_TASK_UNIT_CODE,COLUMN_NAME_DUE_DATE,COLUMN_NAME_URGENT,COLUMN_NAME_IMPORTANT,COLUMN_NAME_COMMENTS};
+
+        String selection = COLUMN_NAME_URGENT + " = ? AND " + COLUMN_NAME_IMPORTANT + " = ?";
+
+        String[] selectionArgs = {urgent,important};
+
+
+        Cursor cursor = db.query(TASK_TABLE_NAME,columnsToQuery,selection,selectionArgs,null,null,null);
+
+        while(cursor.moveToNext()) {
+            Integer temp_task_id = cursor.getInt(cursor.getColumnIndex(COLUMN_NAME_TASK_ID));
+            String temp_task_name_value = cursor.getString(cursor.getColumnIndex(COLUMN_NAME_TASK_NAME));
+            String temp_unit_code_value = cursor.getString(cursor.getColumnIndex(COLUMN_NAME_TASK_UNIT_CODE));
+            String temp_due_date_string = cursor.getString(cursor.getColumnIndex(COLUMN_NAME_DUE_DATE));
+            String temp_urgent_value = cursor.getString(cursor.getColumnIndex(COLUMN_NAME_URGENT));
+            String temp_important_value = cursor.getString(cursor.getColumnIndex(COLUMN_NAME_IMPORTANT));
+            String temp_comments_string = cursor.getString(cursor.getColumnIndex(COLUMN_NAME_COMMENTS));
+
+            Task newTask = new Task(temp_task_id, temp_task_name_value, temp_unit_code_value, temp_due_date_string, temp_urgent_value, temp_important_value, temp_comments_string);
+
+            loadedTaskList.add(newTask);
+        }
+
+        return loadedTaskList;
+    }
+
     public void updateTask(String[] updateValues,Integer taskID){
 
         SQLiteDatabase db = this.getReadableDatabase();

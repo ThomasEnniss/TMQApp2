@@ -103,7 +103,8 @@ public class taskList extends AppCompatActivity {
     }
 
     public void populateTaskArray() {
-        taskList = database.loadTasksByDate(dateToLoadtasks);
+        /*First paremeter is ugency bool in string form, second parameter is importance bool in string form*/
+        taskList = database.loadTaskByPriority("true","true");
     }
 
     public void createTaskList() {
