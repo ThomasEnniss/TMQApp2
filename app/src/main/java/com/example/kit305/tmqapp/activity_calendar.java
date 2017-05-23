@@ -88,7 +88,6 @@ public class activity_calendar extends AppCompatActivity {
                         startActivity(calendarIntent);
                         return true;
                 }
-
                 return false;
             }
         });

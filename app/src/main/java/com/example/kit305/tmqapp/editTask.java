@@ -17,9 +17,10 @@ public class editTask extends AppCompatActivity {
     private NavigationView mNavigation;
     private ActionBarDrawerToggle mToggle;
 
-    private Intent intent;
+
     private tmqAppDatabasehandler database;
     private Integer taskId;
+    private String dateToLoadtasks; /*This is so we can go back to task list which is expecting a date to load a list. I think this was why it was crashing*/
 
     /*Get the indiviual form widgets so we can retrieve their values*/
     private EditText task_name_entry_field;
@@ -36,8 +37,9 @@ public class editTask extends AppCompatActivity {
         setContentView(R.layout.activity_edit_task);
 
         database = new tmqAppDatabasehandler(this);
-        intent = getIntent();
+        Intent intent = getIntent();
         taskId = Integer.parseInt(intent.getStringExtra("taskIdtoLoad"));
+        dateToLoadtasks = intent.getStringExtra("taskDate");
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         mNavigation = (NavigationView) findViewById(R.id.navigationView);
@@ -104,7 +106,8 @@ public class editTask extends AppCompatActivity {
                 /*Save Values into the database*/
                 database.updateTask(taskValuesToSave,taskId);
 
-                Intent listIntent = new Intent(editTask.this, activity_calendar.class);
+                Intent listIntent = new Intent(editTask.this, taskList.class);
+                listIntent.putExtra("taskDate", dateToLoadtasks);
                 startActivity(listIntent);
             }
         });
@@ -117,7 +120,8 @@ public class editTask extends AppCompatActivity {
 
                 database.deleteTask(taskId);
 
-                Intent listIntent = new Intent(editTask.this, activity_calendar.class);
+                Intent listIntent = new Intent(editTask.this, taskList.class);
+                listIntent.putExtra("taskDate", dateToLoadtasks);
                 startActivity(listIntent);
             }
         });

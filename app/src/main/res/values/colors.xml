@@ -5,4 +5,9 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="white">#FFFFFF</color>
+
+    <color name="not_urgent_not_imporetant">#6a961f</color>
+    <color name="not_urgent_imporetant">#F5C700</color>
+    <color name="urgent_not_imporetant">#FF6600</color>
+    <color name="urgent_imporetant">#c12552</color>
 </resources>
