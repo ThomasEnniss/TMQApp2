@@ -37,7 +37,7 @@ public class dashboard extends AppCompatActivity {
     tmqAppDatabasehandler database;
 
     int taskCount[];
-    String taskClass[] = { "U-I", "NU-I", "U-NI", "NU-NI" };
+    String taskClass[] = { "U-I", "U-NI", "NU-I", "NU-NI" };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -97,7 +97,7 @@ public class activity_calendar extends AppCompatActivity {
         mToggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        final DateFormat dfDisplay = new SimpleDateFormat("dd/MMM/yyyy");
+        final DateFormat dfDisplay = new SimpleDateFormat("MMM yyyy");
         final DateFormat dfSend = new SimpleDateFormat("dd/MM/yyyy");
 
         final CompactCalendarView compactCalendar = (CompactCalendarView) findViewById(R.id.compactcalendar_view);
