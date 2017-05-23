@@ -49,7 +49,8 @@ public class editTask extends AppCompatActivity {
         database = new tmqAppDatabasehandler(this);
         Intent intent = getIntent();
         taskId = Integer.parseInt(intent.getStringExtra("taskIdtoLoad"));
-        dateToLoadtasks = intent.getStringExtra("taskDate");
+
+        request = intent.getStringExtra("request");
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         mNavigation = (NavigationView) findViewById(R.id.navigationView);
@@ -94,7 +95,6 @@ public class editTask extends AppCompatActivity {
 
         if (request.equals("date")) {
             dateToLoadtasks = intent.getStringExtra("taskDate");
-
         }
         else {
             priority = intent.getStringExtra("priority");
@@ -130,15 +130,14 @@ public class editTask extends AppCompatActivity {
 
                 if (request.equals("date")) {
                     Intent listIntent = new Intent(editTask.this, taskList.class);
-                    listIntent.putExtra("priority", request);
-
+                    listIntent.putExtra("request", request);
                     listIntent.putExtra("taskDate", dateToLoadtasks);
-
                     startActivity(listIntent);
                 }
                 else {
                     Intent listIntent2 = new Intent(editTask.this, taskList.class);
-                    listIntent2.putExtra("priority", request);
+                    listIntent2.putExtra("request", request);
+                    listIntent2.putExtra("priority", priority);
                     listIntent2.putExtra("urgency", urgency);
                     listIntent2.putExtra("importance",importance );
 
@@ -159,14 +158,13 @@ public class editTask extends AppCompatActivity {
                 if (request.equals("date")) {
                     Intent listIntent = new Intent(editTask.this, taskList.class);
                     listIntent.putExtra("priority", request);
-
                     listIntent.putExtra("taskDate", dateToLoadtasks);
-
                     startActivity(listIntent);
                 }
                 else {
                     Intent listIntent2 = new Intent(editTask.this, taskList.class);
-                    listIntent2.putExtra("priority", request);
+                    listIntent2.putExtra("request",request);
+                    listIntent2.putExtra("priority", priority);
                     listIntent2.putExtra("urgency", urgency);
                     listIntent2.putExtra("importance",importance );
 

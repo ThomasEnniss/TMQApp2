@@ -111,6 +111,7 @@ public class taskList extends AppCompatActivity {
             taskListDateHeader.setText(dateToLoadtasks);
         }
         else {
+
             priority = intent.getStringExtra("priority");
             urgency = intent.getStringExtra("urgency");
             importance = intent.getStringExtra("importance");
@@ -185,7 +186,7 @@ public class taskList extends AppCompatActivity {
 
                         if (request.equals("date")) {
                             Intent editIntent = new Intent(taskList.this, editTask.class);
-                            editIntent.putExtra("priority", request);
+                            editIntent.putExtra("request",request);
                             editIntent.putExtra("taskIdtoLoad", Integer.toString(taskToLoad));
                             editIntent.putExtra("taskDate", dateToLoadtasks);
                             Log.d("Task_List",Integer.toString(taskToLoad));
@@ -193,7 +194,8 @@ public class taskList extends AppCompatActivity {
                         }
                         else {
                             Intent editIntent2 = new Intent(taskList.this, editTask.class);
-                            editIntent2.putExtra("priority", request);
+                            editIntent2.putExtra("request",request);
+                            editIntent2.putExtra("priority", priority);
                             editIntent2.putExtra("urgency", urgency);
                             editIntent2.putExtra("importance",importance );
                             editIntent2.putExtra("taskIdtoLoad", Integer.toString(taskToLoad));
