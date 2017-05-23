@@ -6,11 +6,15 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Switch;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 public class editTask extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
@@ -29,6 +33,12 @@ public class editTask extends AppCompatActivity {
     private Switch urgent_switch;
     private Switch important_switch;
     private EditText comments_section;
+
+
+    String request;
+    String urgency;
+    String importance;
+    String priority;
 
 
     @Override
@@ -72,6 +82,7 @@ public class editTask extends AppCompatActivity {
         mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.menu_open, R.string.menu_close);
         mDrawerLayout.addDrawerListener(mToggle);
         mToggle.syncState();
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         task_name_entry_field = (EditText)findViewById(R.id.nameText);
@@ -80,6 +91,17 @@ public class editTask extends AppCompatActivity {
         urgent_switch = (Switch)findViewById(R.id.urgentSwitch);
         important_switch = (Switch)findViewById(R.id.importantSwitch);
         comments_section = (EditText)findViewById(R.id.commentText);
+
+        if (request.equals("date")) {
+            dateToLoadtasks = intent.getStringExtra("taskDate");
+
+        }
+        else {
+            priority = intent.getStringExtra("priority");
+            urgency = intent.getStringExtra("urgency");
+            importance = intent.getStringExtra("importance");
+
+        }
 
         prefillForm();
 
@@ -106,9 +128,22 @@ public class editTask extends AppCompatActivity {
                 /*Save Values into the database*/
                 database.updateTask(taskValuesToSave,taskId);
 
-                Intent listIntent = new Intent(editTask.this, taskList.class);
-                listIntent.putExtra("taskDate", dateToLoadtasks);
-                startActivity(listIntent);
+                if (request.equals("date")) {
+                    Intent listIntent = new Intent(editTask.this, taskList.class);
+                    listIntent.putExtra("priority", request);
+
+                    listIntent.putExtra("taskDate", dateToLoadtasks);
+
+                    startActivity(listIntent);
+                }
+                else {
+                    Intent listIntent2 = new Intent(editTask.this, taskList.class);
+                    listIntent2.putExtra("priority", request);
+                    listIntent2.putExtra("urgency", urgency);
+                    listIntent2.putExtra("importance",importance );
+
+                    startActivity(listIntent2);
+                }
             }
         });
 
@@ -120,9 +155,23 @@ public class editTask extends AppCompatActivity {
 
                 database.deleteTask(taskId);
 
-                Intent listIntent = new Intent(editTask.this, taskList.class);
-                listIntent.putExtra("taskDate", dateToLoadtasks);
-                startActivity(listIntent);
+
+                if (request.equals("date")) {
+                    Intent listIntent = new Intent(editTask.this, taskList.class);
+                    listIntent.putExtra("priority", request);
+
+                    listIntent.putExtra("taskDate", dateToLoadtasks);
+
+                    startActivity(listIntent);
+                }
+                else {
+                    Intent listIntent2 = new Intent(editTask.this, taskList.class);
+                    listIntent2.putExtra("priority", request);
+                    listIntent2.putExtra("urgency", urgency);
+                    listIntent2.putExtra("importance",importance );
+
+                    startActivity(listIntent2);
+                }
             }
         });
 

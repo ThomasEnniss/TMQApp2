@@ -28,8 +28,12 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 public class taskList extends AppCompatActivity {
@@ -88,6 +92,8 @@ public class taskList extends AppCompatActivity {
         mToggle.syncState();
 
 
+
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         TextView taskListDateHeader = (TextView)findViewById(R.id.page_title);
@@ -98,6 +104,9 @@ public class taskList extends AppCompatActivity {
 
         if (request.equals("date")) {
             dateToLoadtasks = intent.getStringExtra("taskDate");
+            final DateFormat dfDisplay = new SimpleDateFormat("dd MMM yyyy");
+
+
             taskList = database.loadTasksByDate(dateToLoadtasks);
             taskListDateHeader.setText(dateToLoadtasks);
         }
@@ -174,11 +183,23 @@ public class taskList extends AppCompatActivity {
                     public void onClick(View v) {
                         Integer taskToLoad = v.getId();
 
-                        Intent editIntent = new Intent(taskList.this, editTask.class);
-                        editIntent.putExtra("taskIdtoLoad", Integer.toString(taskToLoad));
-                        editIntent.putExtra("taskDate", dateToLoadtasks);
-                        Log.d("Task_List",Integer.toString(taskToLoad));
-                        startActivity(editIntent);
+                        if (request.equals("date")) {
+                            Intent editIntent = new Intent(taskList.this, editTask.class);
+                            editIntent.putExtra("priority", request);
+                            editIntent.putExtra("taskIdtoLoad", Integer.toString(taskToLoad));
+                            editIntent.putExtra("taskDate", dateToLoadtasks);
+                            Log.d("Task_List",Integer.toString(taskToLoad));
+                            startActivity(editIntent);
+                        }
+                        else {
+                            Intent editIntent2 = new Intent(taskList.this, editTask.class);
+                            editIntent2.putExtra("priority", request);
+                            editIntent2.putExtra("urgency", urgency);
+                            editIntent2.putExtra("importance",importance );
+                            editIntent2.putExtra("taskIdtoLoad", Integer.toString(taskToLoad));
+                            Log.d("Task_List",Integer.toString(taskToLoad));
+                            startActivity(editIntent2);
+                        }
                     }
                 });
 
