@@ -13,14 +13,17 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 public class questionaire extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     private NavigationView mNavigation;
     private ActionBarDrawerToggle mToggle;
 
+    /*We need a database object to store the TMQ score*/
     tmqAppDatabasehandler database;
 
+    /*All the spinner widgets we need to setup for the TMQ*/
     Spinner question1;
     Spinner question2;
     Spinner question3;
@@ -48,6 +51,7 @@ public class questionaire extends AppCompatActivity {
 
         database  = new tmqAppDatabasehandler(this.getApplicationContext());
 
+        /*These the navigation draw controllers for navigating through the app. Selected top right and extends from the left*/
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         mNavigation = (NavigationView) findViewById(R.id.navigationView);
         mNavigation.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -81,6 +85,7 @@ public class questionaire extends AppCompatActivity {
         mToggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        /*Spinners are initialised with their default values 1-5*/
         initialiseSpinners();
     }
 
@@ -138,6 +143,8 @@ public class questionaire extends AppCompatActivity {
     }
 
     public void calculateScore(View view) {
+
+        /*We retrieve all the values from the spinners and convert to floats for calculations*/
         float value1 = Float.parseFloat(question1.getSelectedItem().toString());
         float value2 = Float.parseFloat(question2.getSelectedItem().toString());
         float value3 = Float.parseFloat(question3.getSelectedItem().toString());
@@ -157,6 +164,7 @@ public class questionaire extends AppCompatActivity {
         float value17 = Float.parseFloat(question17.getSelectedItem().toString());
         float value18 = Float.parseFloat(question18.getSelectedItem().toString());
 
+        /*We calculate the sums into their categories*/
         int categoryAScore = (int)(((value1 + value2 + value3 + value4 + value5 + value6 + value7) / 35f) * 100f);
         int categoryBScore = (int)(((value8 + value9 + value10 + value11 + value12 + value13) / 30f) * 100f);
         int categoryCScore = (int)(((value14 + value15 + value16 + value17 + value18) / 25f) * 100f);
@@ -167,11 +175,17 @@ public class questionaire extends AppCompatActivity {
         Log.d("Category C", Float.toString(categoryCScore));
         Log.d("TMQ Score", Float.toString(finalScore));
 
+        /*We save the final scores to the database*/
         database.updateTMQScore(Integer.toString(finalScore));
+
+        /*We notfiy the user that their score has been updated*/
+        Toast toast = Toast.makeText(getApplicationContext(),"Score has been updated!",Toast.LENGTH_SHORT);
+        toast.show();
 
         jumpToResults(categoryAScore, categoryBScore, categoryCScore, finalScore);
     }
 
+    /*This sets all the values into the intent so we can navigate to the questionaire results intent*/
     public void jumpToResults(int scoreA, int scoreB, int scoreC, int scoreD) {
         Intent intent = new Intent(questionaire.this, questionnaireResults.class);
         intent.putExtra("categoryA", Integer.toString(scoreA));

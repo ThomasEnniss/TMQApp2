@@ -37,11 +37,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-/* public static final int[] COLORFUL_COLORS = {
-            Color.rgb(193, 37, 82), Color.rgb(255, 102, 0), Color.rgb(245, 199, 0),
-            Color.rgb(106, 150, 31), Color.rgb(179, 100, 53)
-    };
-*/
+/* PLEASE NOTE: The activity Calendar we used was developed by SundeepK on Gihub Copyright (c) [2017] [Sundeepk] https://github.com/SundeepK/CompactCalendarView */
 
 public class activity_calendar extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
@@ -49,6 +45,7 @@ public class activity_calendar extends AppCompatActivity {
     private ActionBarDrawerToggle mToggle;
     TextView calendarheader;
 
+    /*Load up the database to find events*/
     tmqAppDatabasehandler database;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -61,10 +58,13 @@ public class activity_calendar extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
 
+        /*Once we set the conext we set up the database handler*/
         database = new tmqAppDatabasehandler(this);
 
+        /*This is the date header for the current calendar so we can see the month and year we are in*/
         calendarheader = (TextView) findViewById(R.id.Calendar_Date);
 
+        /*These the navigation draw controllers for navigating through the app. Selected top right and extends from the left*/
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         mNavigation = (NavigationView) findViewById(R.id.navigationView);
         mNavigation.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -97,21 +97,22 @@ public class activity_calendar extends AppCompatActivity {
         mToggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        final DateFormat dfDisplay = new SimpleDateFormat("MMM yyyy");
-        final DateFormat dfSend = new SimpleDateFormat("dd/MM/yyyy");
 
-        final CompactCalendarView compactCalendar = (CompactCalendarView) findViewById(R.id.compactcalendar_view);
+        final DateFormat dfDisplay = new SimpleDateFormat("MMM yyyy");/*Date format we use for the top of the header*/
+        final DateFormat dfSend = new SimpleDateFormat("dd/MM/yyyy"); /*Date format we use for sending a date string to the task list activity*/
 
-        Date intialheader_date = compactCalendar.getFirstDayOfCurrentMonth();
+        final CompactCalendarView compactCalendar = (CompactCalendarView) findViewById(R.id.compactcalendar_view); /*We create a new calendar vieww object so we can add events and access dates and other methods*/
+
+        Date intialheader_date = compactCalendar.getFirstDayOfCurrentMonth(); /*We get the staarting date of the currently display month*/
 
         compactCalendar.setFirstDayOfWeek(Calendar.MONDAY);
 
-        calendarheader.setText(dfDisplay.format(intialheader_date));
+        calendarheader.setText(dfDisplay.format(intialheader_date)); /*We use the date we grabbed from the calendar to set the date header above the calendar and chop of the day for easier reading*/
 
         /*Get events from database*/
-        List<Event> calendarEvents = database.getAllEventDates();
+        List<Event> calendarEvents = database.getAllEventDates(); /*These are the events we are populating the calendar with. We retrieve the list from the database handler*/
 
-        /*Loop over list and add events*/
+        /*Loop over event list and add events*/
         for(Event event : calendarEvents){
             Log.d("Calendar_Activity","Adding Event");
             compactCalendar.addEvent(event, false);
@@ -119,25 +120,29 @@ public class activity_calendar extends AppCompatActivity {
 
         compactCalendar.setListener(new CompactCalendarView.CompactCalendarViewListener() {
             @Override
+            /*Listener attached to individual cells. Clicking one loads up the task list for that day*/
             public void onDayClick(Date dateClicked) {
-                List<Event> events = compactCalendar.getEvents(dateClicked);
+
+
+                List<Event> events = compactCalendar.getEvents(dateClicked); /*Loads events for the selcted day so we can log them to the console for debuggin*/
                 Log.d("CalendarView", "Day was clicked: " + dateClicked + " with events " + events);
 
+                /*We are redirected to the task list for the selected day*/
                 Intent task_list_intent = new Intent(activity_calendar.this,taskList.class);
-                task_list_intent.putExtra("request","date");
-                task_list_intent.putExtra("taskDate",dfSend.format(dateClicked));
+                task_list_intent.putExtra("request","date");/*Since we can filter by date or priorty, we need to tell the task list wwe are searching by date so it gets the right values from the intent*/
+                task_list_intent.putExtra("taskDate",dfSend.format(dateClicked)); /*The date in string form we will load values from*/
 
                 Log.d("Calendar_Activity",dfSend.format(dateClicked));
 
                 startActivity(task_list_intent);
             }
-
+            /*Listener attached to swipping the calendar left or right cells. sipping only changes the date*/
             @Override
             public void onMonthScroll(Date firstDayOfNewMonth) {
                 Log.d("CalendarView", "Month was scrolled to: " + firstDayOfNewMonth);
                 Date scrollDate = firstDayOfNewMonth;
 
-                calendarheader.setText(dfDisplay.format(scrollDate));
+                calendarheader.setText(dfDisplay.format(scrollDate));/*Change header date to the month we swipped to*/
             }
         });
     }

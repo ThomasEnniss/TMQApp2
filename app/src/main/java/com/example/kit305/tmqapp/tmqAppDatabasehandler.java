@@ -21,9 +21,13 @@ import java.util.List;
 
 public class tmqAppDatabasehandler extends SQLiteOpenHelper {
 
+    /*The tables in the database*/
     private static final String TASK_TABLE_NAME = "tasks_table";
+
+    /*I felt it easier to store the score in the database*/
     private static final String TMQ_TABLE_NAME = "tmq_table";
 
+    /*The columns in the task Table*/
     private static final String COLUMN_NAME_TASK_ID = "task_id";
     private static final String COLUMN_NAME_TASK_NAME = "task_name";
     private static final String COLUMN_NAME_TASK_UNIT_CODE = "task_unit_code";
@@ -32,10 +36,11 @@ public class tmqAppDatabasehandler extends SQLiteOpenHelper {
     private static final String COLUMN_NAME_IMPORTANT = "important";
     private static final String COLUMN_NAME_COMMENTS = "comments";
 
+    /*The columns in the TMQ Table*/
     private static final String COLUMN_NAME_TMQ_ID = "tmq_id";
     private static final String COLUMN_NAME_TMQ_SCORE = "tmq_score";
 
-
+    /*The query for genertaing the task table*/
     private static final String SQL_CREATE_TASK_TABLE =
             "CREATE TABLE " + TASK_TABLE_NAME + " (" +
                     COLUMN_NAME_TASK_ID + " INTEGER PRIMARY KEY NOT NULL," +
@@ -46,6 +51,7 @@ public class tmqAppDatabasehandler extends SQLiteOpenHelper {
                     COLUMN_NAME_IMPORTANT + " TEXT," +
                     COLUMN_NAME_COMMENTS + " TEXT)";
 
+    /*The query for genertaing the TMQ table*/
     private static final String SQL_CREATE_TMQ_TABLE =
             " CREATE TABLE " + TMQ_TABLE_NAME + " (" +
                     COLUMN_NAME_TMQ_ID + " INTEGER PRIMARY KEY NOT NULL," +
@@ -61,12 +67,14 @@ public class tmqAppDatabasehandler extends SQLiteOpenHelper {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
+    /*Sets up and creates the database if it doesn't exits*/
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(SQL_CREATE_TASK_TABLE);
         db.execSQL(SQL_CREATE_TMQ_TABLE);
         setupTMQTable(db);
     }
 
+    /*This must be impolemented according to the android developer website*/
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         String SQL_DELETE_ENTRIES = "DROP TABLE IF EXISTS " + TASK_TABLE_NAME;
         String SQL_DELETE_SCORES = "DROP TABLE IF EXISTS " + TMQ_TABLE_NAME;
@@ -75,10 +83,12 @@ public class tmqAppDatabasehandler extends SQLiteOpenHelper {
         this.onCreate(db);
     }
 
+    /*This must be impolemented according to the android developer website*/
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         onUpgrade(db, oldVersion, newVersion);
     }
 
+    /*inserts a single task into the databse. Accepts a String array of the values*/
     public void insertTask(String[] taskValues){
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -96,17 +106,7 @@ public class tmqAppDatabasehandler extends SQLiteOpenHelper {
 
     }
 
-    public void viewTaskTable(){
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        String[] columnsToQuery = {COLUMN_NAME_TASK_NAME,COLUMN_NAME_TASK_UNIT_CODE,COLUMN_NAME_DUE_DATE,COLUMN_NAME_URGENT,COLUMN_NAME_IMPORTANT,COLUMN_NAME_COMMENTS};
-
-        Cursor cursor = db.query(TASK_TABLE_NAME,columnsToQuery,null,null,null,null,null);
-
-        cursor.moveToNext();
-        Log.d("Found",cursor.getString(cursor.getColumnIndex(COLUMN_NAME_TASK_NAME)));
-    }
-
+    /*This loads all the tasks from the task table, and returns an array with 4 integers. Each integer representds 4 urgency / importance states. Used for pie chart*/
     public int[] loadChartValues(){
 
         Log.d("SqlLite","Loading Chart Values...");
@@ -118,12 +118,14 @@ public class tmqAppDatabasehandler extends SQLiteOpenHelper {
 
         Cursor cursor = db.query(TASK_TABLE_NAME,columnsToQuery,null,null,null,null,null);
 
+        /*We loop through the tasks loaded by the query*/
         while(cursor.moveToNext()){
             String temp_urgent_value = cursor.getString(cursor.getColumnIndex(COLUMN_NAME_URGENT));
             String temp_important_value = cursor.getString(cursor.getColumnIndex(COLUMN_NAME_IMPORTANT));
 
             Log.d("SqlLite","Urgent: " + temp_urgent_value + " Important: " + temp_important_value);
 
+            /*We check to see if the task is urgent and important. Depending on these condition decides which index in the array to increment*/
             if(temp_urgent_value.equals("false")){
 
                 Log.d("SqlLite", "Not Urgent");
@@ -135,19 +137,19 @@ public class tmqAppDatabasehandler extends SQLiteOpenHelper {
                     numbers[3]++;
                 }else{
 
-                    Log.d("SqlLite", "Important");
+                    Log.d("SqlLite", "Is Important");
 
                     numbers[2]++;
                 }
             }else{
 
-                Log.d("SqlLite", "Urgent");
+                Log.d("SqlLite", "Is Urgent");
 
                 if(temp_important_value.equals("false")){
                     numbers[1]++;
                 }else{
 
-                    Log.d("SqlLite", "Important");
+                    Log.d("SqlLite", "Is Important");
 
                     numbers[0]++;
                 }
@@ -157,14 +159,7 @@ public class tmqAppDatabasehandler extends SQLiteOpenHelper {
         return numbers;
     }
 
-    public void emptyDatabase(){
-
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        db.delete(TASK_TABLE_NAME, null, null);
-
-    }
-
+    /*This adds an inital row and score of 0 to the TMQ table so the users score starts off as zero*/
     private void setupTMQTable(SQLiteDatabase db){
 
         ContentValues values = new ContentValues();
@@ -176,6 +171,7 @@ public class tmqAppDatabasehandler extends SQLiteOpenHelper {
 
     }
 
+    /*Updates the single row in the TMQ table with the score*/
     public void updateTMQScore(String score){
 
         SQLiteDatabase db = this.getReadableDatabase();
@@ -196,6 +192,7 @@ public class tmqAppDatabasehandler extends SQLiteOpenHelper {
         );
     }
 
+    /*Loads and returns the solitary TMQ score for the dashboard*/
     public String getTMQScore(){
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -208,6 +205,7 @@ public class tmqAppDatabasehandler extends SQLiteOpenHelper {
         return cursor.getString(cursor.getColumnIndex(COLUMN_NAME_TMQ_SCORE));
     }
 
+    /*This gets all the tasks fro mthe database and creates events based on them. These events aare returned to the activity calendar for plotting in ti*/
     public List<Event> getAllEventDates(){
 
         List<Event> eventList= new ArrayList<>();
@@ -219,14 +217,14 @@ public class tmqAppDatabasehandler extends SQLiteOpenHelper {
         Cursor cursor = db.query(TASK_TABLE_NAME,columnsToQuery,null,null,null,null,null);
 
 
-
+        /*Loop through the database creating an event for each class*/
         while(cursor.moveToNext()){
             String temp_urgent_value = cursor.getString(cursor.getColumnIndex(COLUMN_NAME_URGENT));
             String temp_important_value = cursor.getString(cursor.getColumnIndex(COLUMN_NAME_IMPORTANT));
             String temp_date_string = cursor.getString(cursor.getColumnIndex(COLUMN_NAME_DUE_DATE));
             Event newEvent;
 
-
+            /*We need to convert the date string into a string and then into a timestamp / epoch time so it can be properly stored in the calendar*/
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
             Log.d("SQlLite",temp_date_string);
@@ -244,10 +242,8 @@ public class tmqAppDatabasehandler extends SQLiteOpenHelper {
             Log.d("SQlLite", Long.toString(millis));
 
 
-
+            /*We use the importance and urgent fields to determine what color the dot or "event" should be for the calendar*/
             if(temp_urgent_value.equals("false")){
-
-
 
                 if(temp_important_value.equals("false")){
 
@@ -255,14 +251,11 @@ public class tmqAppDatabasehandler extends SQLiteOpenHelper {
 
                     eventList.add(newEvent);
                 }else{
-
                     newEvent = new Event(Color.rgb(245, 199, 0), millis + 'L', "Testing Event");
 
                     eventList.add(newEvent);
                 }
             }else{
-
-
 
                 if(temp_important_value.equals("false")){
 
@@ -282,6 +275,7 @@ public class tmqAppDatabasehandler extends SQLiteOpenHelper {
 
     }
 
+    /*Used for returning a list of all the tasks for a particular date*/
     public List<Task> loadTasksByDate(String dateToLoad){
 
         List<Task> loadedTaskList  = new ArrayList<>();
@@ -296,7 +290,7 @@ public class tmqAppDatabasehandler extends SQLiteOpenHelper {
         Cursor cursor = db.query(TASK_TABLE_NAME,columnsToQuery,selection,selectionArgs,null,null,null);
 
 
-
+        /*loop through tasks and add them to a list*/
         while(cursor.moveToNext()) {
             Integer temp_task_id = cursor.getInt(cursor.getColumnIndex(COLUMN_NAME_TASK_ID));
             String temp_task_name_value = cursor.getString(cursor.getColumnIndex(COLUMN_NAME_TASK_NAME));
@@ -314,6 +308,7 @@ public class tmqAppDatabasehandler extends SQLiteOpenHelper {
         return loadedTaskList;
     }
 
+    /*Used to load 1 task by ID. Used for the edit task*/
     public Task loadTaskByID(Integer IDToLoad){
 
         Task newTask;
@@ -342,6 +337,7 @@ public class tmqAppDatabasehandler extends SQLiteOpenHelper {
         return newTask;
     }
 
+    /*Used to load tasks matching a particular urgency or importance. Accepts bools in string format. */
     public List<Task> loadTaskByPriority(String urgent, String important){
 
         List<Task> loadedTaskList  = new ArrayList<>();
@@ -357,6 +353,7 @@ public class tmqAppDatabasehandler extends SQLiteOpenHelper {
 
         Cursor cursor = db.query(TASK_TABLE_NAME,columnsToQuery,selection,selectionArgs,null,null,null);
 
+        /*Loops through dataabase tasks adding them to the list as a task object*/
         while(cursor.moveToNext()) {
             Integer temp_task_id = cursor.getInt(cursor.getColumnIndex(COLUMN_NAME_TASK_ID));
             String temp_task_name_value = cursor.getString(cursor.getColumnIndex(COLUMN_NAME_TASK_NAME));
@@ -374,6 +371,7 @@ public class tmqAppDatabasehandler extends SQLiteOpenHelper {
         return loadedTaskList;
     }
 
+    /*We update a particular task identified by it's id with the values in the string array*/
     public void updateTask(String[] updateValues,Integer taskID){
 
         SQLiteDatabase db = this.getReadableDatabase();
@@ -399,6 +397,7 @@ public class tmqAppDatabasehandler extends SQLiteOpenHelper {
         );
     }
 
+    /*We delete a task by it's id*/
     public void deleteTask(Integer taskID){
 
         SQLiteDatabase db = this.getReadableDatabase();

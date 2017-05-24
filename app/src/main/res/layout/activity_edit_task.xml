@@ -59,18 +59,18 @@
                 android:width="120dp"
                 android:text="Unit Code" />
 
-            <TextView
-                android:id="@+id/dateLabel"
+            <DatePicker
+                android:id="@+id/selectedEditDate"
                 android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:layout_marginBottom="15dp"
-                android:paddingLeft="10dp"
-                android:paddingTop="15dp"
+                android:layout_height="80dp"
+                android:datePickerMode="spinner"
+                tools:datePickerMode="spinner"
+                android:calendarViewShown="false"
+                android:layout_below="@+id/codeText"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentRight="false"
-                android:layout_below="@+id/codeLabel"
-                android:width="120dp"
-                android:text="Due Date" />
+                android:layout_alignParentStart="true" />
 
             <TextView
                 android:id="@+id/urgentLabel"
@@ -81,9 +81,11 @@
                 android:paddingTop="25dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentRight="false"
-                android:layout_below="@id/dateLabel"
+                android:layout_below="@id/selectedEditDate"
                 android:width="120dp"
                 android:text="Urgent?" />
+
+
 
             <TextView
                 android:id="@+id/importantLabel"
@@ -141,21 +143,6 @@
                 android:layout_below="@+id/nameLabel" />
 
 
-            <EditText
-                android:id="@+id/dateText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="15dp"
-                android:paddingRight="10dp"
-                android:paddingTop="15dp"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignBottom="@id/dateLabel"
-                android:ems="8"
-                android:inputType="date"
-                android:layout_below="@+id/codeLabel"
-                android:layout_toRightOf="@+id/dateLabel"
-                android:layout_toEndOf="@+id/dateLabel" />
 
             <Switch
                 android:id="@+id/urgentSwitch"
@@ -166,7 +153,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
                 android:layout_alignBottom="@+id/urgentLabel"
-                android:layout_below="@+id/dateLabel" />
+                android:layout_below="@+id/selectedEditDate" />
 
             <Switch
                 android:id="@+id/importantSwitch"

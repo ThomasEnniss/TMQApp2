@@ -20,6 +20,7 @@ public class questionnaireResults extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_questionnaire_results);
 
+        /*These the navigation draw controllers for navigating through the app. Selected top right and extends from the left*/
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         mNavigation = (NavigationView) findViewById(R.id.navigationView);
         mNavigation.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -53,11 +54,13 @@ public class questionnaireResults extends AppCompatActivity {
         mToggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        /*We grab the text views we will display the scores in*/
         TextView categoryAScore = (TextView) findViewById(R.id.category_A_score);
         TextView categoryBScore = (TextView) findViewById(R.id.category_B_score);
         TextView categoryCScore = (TextView) findViewById(R.id.category_C_score);
         TextView finalScore = (TextView) findViewById(R.id.final_score);
 
+        /*We retrieve the values from the intent so we can display the scores*/
         Intent intent = getIntent();
         String valueA = intent.getStringExtra("categoryA");
         String valueB = intent.getStringExtra("categoryB");
@@ -79,6 +82,7 @@ public class questionnaireResults extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /*Button to navigate us back to the daashboard*/
     public void jumpToDashboard(View view) {
         Intent intent = new Intent(questionnaireResults.this, dashboard.class);
         startActivity(intent);

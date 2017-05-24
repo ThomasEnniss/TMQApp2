@@ -34,16 +34,19 @@ public class dashboard extends AppCompatActivity {
     private NavigationView mNavigation;
     private ActionBarDrawerToggle mToggle;
 
+    /*Once we set the conext we set up the database handler*/
     tmqAppDatabasehandler database;
 
-    int taskCount[];
-    String taskClass[] = { "U-I", "U-NI", "NU-I", "NU-NI" };
+
+    int taskCount[]; /*Array for pie chart which diplays how many tasks we have in each of the 4 categories*/
+    String taskClass[] = { "U-I", "U-NI", "NU-I", "NU-NI" }; /*Array for pie chart which diplays 1 of the category titles for a relevant chunk*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dashboard);
 
+        /*These the navigation draw controllers for navigating through the app. Selected top right and extends from the left*/
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         mNavigation = (NavigationView) findViewById(R.id.navigationView);
         mNavigation.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -77,13 +80,18 @@ public class dashboard extends AppCompatActivity {
         mToggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        /*We instatiate the datebase object*/
         database  = new tmqAppDatabasehandler(this.getApplicationContext());
+
+        /*We load the array of counted tasks from the database*/
         taskCount = database.loadChartValues();
         Log.d("Dashboard", Arrays.toString(taskCount));
+        /*We initialize pie chart with it's values*/
         setupPieChart();
         TextView scoreLabel = (TextView)findViewById(R.id.label4);
 
-        scoreLabel.setText(database.getTMQScore() + "%");
+        /*Display the TMQ score wwith the value retrieved from that database*/
+        scoreLabel.setText("Your Score: " + database.getTMQScore() + "% \n Class average: 59%");
     }
 
     @Override
@@ -96,24 +104,33 @@ public class dashboard extends AppCompatActivity {
     }
 
     private void setupPieChart() {
+
+        /*Pie chunks for pie chart*/
         List<PieEntry> pieEntries = new ArrayList<>();
+
+        /*We loop through the array and add pie chunks as needed with coloured styling to match the importance and urgency*/
         for (int i = 0; i < taskCount.length; i++) {
             if (taskCount[i] == 0)
+                /*Value is zero and color is not inserted. Does not showw up in pie chart*/
                 pieEntries.add(new PieEntry(taskCount[i]));
             else
                 pieEntries.add(new PieEntry(taskCount[i], taskClass[i]));
         }
 
-        PieDataSet dataSet = new PieDataSet(pieEntries, "Tasks");
+        /*We setup the pie chart using the arrays and data we used before*/
 
+        PieDataSet dataSet = new PieDataSet(pieEntries, "Tasks");
         PieData chartData = new PieData(dataSet);
         PieChart chart = (PieChart) findViewById(R.id.pieChart);
+
+        /*This listener is for allowing users to click chunks and navigate to task lists based on priority*/
         chart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
             public void onValueSelected(Entry e, Highlight h) {
                 PieEntry pe = (PieEntry) e;
                 Intent listIntent = new Intent(dashboard.this, taskList.class);
 
+                /*We start intents based on priority not date*/
                 listIntent.putExtra("request", "priority");
                 if (pe.getLabel() == "U-I") {
                     listIntent.putExtra("priority", "Urgent - Important");
@@ -147,6 +164,7 @@ public class dashboard extends AppCompatActivity {
             }
         });
 
+        /*Setting up other chart formating and data including the center text*/
         Description description = new Description();
         Legend chartLegend = chart.getLegend();
 
@@ -169,7 +187,7 @@ public class dashboard extends AppCompatActivity {
         chart.animateY(1000);
         chart.invalidate();
     }
-
+    /*Returns a sum of all the tasks in the tasks array*/
     private int tallyTaskCount() {
         int totalTasks = 0;
         for (int i = 0; i < taskCount.length; i++) {
